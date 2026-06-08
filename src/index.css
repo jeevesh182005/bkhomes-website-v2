@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Outfit:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --royal: #443199;
+  --royal-deep: #2e2070;
+  --royal-light: #5a44c4;
+  --gold: #C9A84C;
+  --gold-light: #e8c96e;
+  --gold-pale: #f5e5b0;
+  --ink: #0a0818;
+  --ink-soft: #120f24;
+  --ink-mid: #1a1535;
+  --cream: #F8F6F0;
+  --cream-dark: #ede9df;
+  --text-muted: #8a8599;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+}
+.cursor-ring {
+  width: 40px; height: 40px;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: all 0.12s ease;
+}
+
+/* Fonts */
+.font-display { font-family: 'Cormorant Garamond', serif; }
+.font-playfair { font-family: 'Playfair Display', serif; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--royal); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Gold text */
+.text-gold { color: var(--gold); }
+.text-royal { color: var(--royal-light); }
+
+/* Section base */
+section { position: relative; }
+
+/* Grain overlay */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* Marquee */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee-left 30s linear infinite; }
+
+/* Scroll reveal base */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Button styles */
+.btn-gold {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, #C9A84C, #e8c96e);
+  color: #0a0818;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  border: none; cursor: pointer;
+  text-decoration: none;
+  transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.btn-gold::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, #e8c96e, #C9A84C);
+  opacity: 0; transition: opacity 0.4s;
+}
+.btn-gold:hover::before { opacity: 1; }
+.btn-gold:hover { box-shadow: 0 0 40px rgba(201,168,76,0.35); }
+.btn-gold span { position: relative; z-index: 1; }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 13px 36px;
+  border: 1px solid rgba(201,168,76,0.5);
+  color: var(--gold);
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 3px; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: all 0.4s;
+  position: relative; overflow: hidden;
+  background: transparent;
+}
+.btn-outline::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(201,168,76,0.08);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+.btn-outline:hover::before { transform: translateX(0); }
+.btn-outline:hover { border-color: var(--gold); }
+
