@@ -8,7 +8,6 @@ export const company = {
   founded: 2011,
   md: "K. Mohan Kumar",
   phone: "88708 00708",
-  phone2: "75100 20044",
   email: "bkhomes2011@gmail.com",
   website: "www.bkhomes.in",
   whatsapp: "8870800708",
@@ -18,19 +17,14 @@ export const company = {
       address: "Plot No. 8C, Vivekananda Salai, Rajajipuram, Tiruvallur – 602 001",
       city: "Tiruvallur"
     },
-    branch: {
-      label: "Branch Office",
-      address: "Plot No. 14, 2nd Cross Street, Dr. VGP Vimala Nagar, Medavakkam, Chennai – 600 100",
-      city: "Chennai"
-    }
   },
   stats: [
-    { number: "26+", label: "Apartments Built" },
-    { number: "42+", label: "Individual Homes" },
+    { number: "4", label: "Ongoing Apartments" },
+    { number: "2", label: "Ongoing Villas" },
+    { number: "1", label: "Gated Community" },
     { number: "14+", label: "Years of Excellence" },
-    { number: "3", label: "Commercial Buildings" },
   ],
-  about: `BK HOMES is an established construction company managed by a team of well-experienced professional engineers. Founded in 2011, our roots trace back to an agriculture-based parent company — built on the values of hard work, trust, and quality. Today, we are proud to have delivered landmark projects across Chennai, Madurai, and Tiruvallur.`,
+  about: `BK HOMES is an established construction company managed by a team of well-experienced professional engineers. Founded in 2011, our roots trace back to an agriculture-based parent company — built on the values of hard work, trust, and quality. Today, we are proud to have delivered landmark projects across Tiruvallur and beyond.`,
   mission: "Setting a benchmark in the construction domain by offering value-rich homes at affordable prices.",
   vision: "To create the ideal environment for people to live, to work, to grow, to thrive and to prosper for generations to come.",
   quality: "Quality is Primary to BK Homes. We create homes of true artistry and quality.",
@@ -43,7 +37,7 @@ export const services = [
     icon: "Building2",
     number: "01",
     title: "Apartment Buildings",
-    desc: "Premium multi-unit residential complexes with modern amenities, lift access, covered parking, and quality finishes across Tiruvallur and Chennai."
+    desc: "Premium multi-unit residential complexes with modern amenities, lift access, covered parking, and quality finishes across Tiruvallur."
   },
   {
     id: "villas",
@@ -82,104 +76,225 @@ export const services = [
   },
 ];
 
-export const featuredProjects = [
+// ── ONGOING APARTMENT PROJECTS ──────────────────────────────────────────────
+export const ongoingApartments = [
+  {
+    id: "bk-chandra",
+    name: "BK Chandra",
+    subtitle: "Signature Living",
+    type: "Apartment",
+    status: "Ongoing",
+    location: "Dr. Mu. Va Street, Rajajipuram, Tiruvallur",
+    contact: "88708 00708",
+    floors: 5,
+    totalFlats: 10,
+    plotSize: "50'×52' (approx)",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80",
+    flatTypes: [
+      { flat: "1A", area: 1377, uds: 518, facing: "North", status: "Booked" },
+      { flat: "1B", area: 1343, uds: 518, facing: "South", status: "Booked" },
+      { flat: "2A", area: 1377, uds: 518, facing: "North", status: "Available" },
+      { flat: "2B", area: 1343, uds: 518, facing: "South", status: "Available" },
+      { flat: "3A", area: 1377, uds: 518, facing: "North", status: "Available" },
+      { flat: "3B", area: 1343, uds: 518, facing: "South", status: "Available" },
+      { flat: "4A", area: 1377, uds: 518, facing: "North", status: "Available" },
+      { flat: "4B", area: 1343, uds: 518, facing: "South", status: "Available" },
+      { flat: "5A", area: 1377, uds: 518, facing: "North", status: "Booked" },
+      { flat: "5B", area: 1343, uds: 518, facing: "South", status: "Available" },
+    ],
+    floorAvailability: [
+      { floor: "1st Floor", units: [{ id: "1A", status: "Booked", area: 1377, facing: "North" }, { id: "1B", status: "Booked", area: 1343, facing: "South" }] },
+      { floor: "2nd Floor", units: [{ id: "2A", status: "Available", area: 1377, facing: "North" }, { id: "2B", status: "Available", area: 1343, facing: "South" }] },
+      { floor: "3rd Floor", units: [{ id: "3A", status: "Available", area: 1377, facing: "North" }, { id: "3B", status: "Available", area: 1343, facing: "South" }] },
+      { floor: "4th Floor", units: [{ id: "4A", status: "Available", area: 1377, facing: "North" }, { id: "4B", status: "Available", area: 1343, facing: "South" }] },
+      { floor: "5th Floor", units: [{ id: "5A", status: "Booked", area: 1377, facing: "North" }, { id: "5B", status: "Available", area: 1343, facing: "South" }] },
+    ],
+    features: ["Lift (Johnson)", "Modular Kitchen", "Wood Work", "False Ceiling", "1 Ton AC (Lloyd)", "AO Smith Geyser", "Video Door Phone", "CCTV Parking", "Genset", "Covered Parking"],
+    amenities: ["Fully Furnished Premium 3BHK", "Modular Kitchen", "Wood Work (Bedrooms, TV Unit, Pooja)", "False Ceiling (Hall & Bedrooms)", "1 Ton AC - Lloyd", "AO Smith Geyser", "Video Door Phone Lock", "CCTV Camera For Parking", "Johnson Lift", "Automatic Water Level Controller", "Genset For Lift & Common Area"],
+    description: "BK Chandra is a landmark premium apartment complex on Dr. Mu. Va Street, Rajajipuram, Tiruvallur. Featuring fully furnished 3BHK flats with modular kitchen, wood work, false ceiling, and top-tier amenities. 1st floor is fully booked. 3rd floor is fully available. 5th floor back side (5B) is available.",
+    hasFloorPlan: true,
+    floorPlan: {
+      width: 50, depth: 52,
+      rooms: [
+        "Living/Dining 17'9\"×17'0\" (Type A) / 13'10\"×21'6\" (Type B)",
+        "Master Bedroom 10'7½\"×16'3\" / 10'0\"×12'4½\"",
+        "Bedroom 10'10\"×9'7½\" / 9'4½\"×11'10½\"",
+        "Bedroom 10'0\"×11'6\" / 10'3\"×12'4½\"",
+        "Kitchen 7'0\"×9'7\" / 9'4½\"×7'0\"",
+        "Utility 7'3\"×4'8\"",
+        "Balcony 6'3\"×4'7½\" / 9'7½\"×3'9\"",
+        "3 Toilets", "Foyer", "Pooja",
+      ]
+    }
+  },
+  {
+    id: "bk-aran",
+    name: "BK Aran",
+    subtitle: "Elevated Living",
+    type: "Apartment",
+    status: "Ongoing",
+    location: "Tiruvallur",
+    contact: "88708 00708",
+    floors: 4,
+    totalFlats: 8,
+    plotSize: "40'×60'",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80",
+    flatTypes: [
+      { flat: "F1", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "F2", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "S1", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "S2", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "T1", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "T2", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "4F1", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "4F2", area: 990, uds: 400, facing: "East", status: "Available" },
+    ],
+    floorAvailability: [
+      { floor: "1st Floor", units: [{ id: "F1", status: "Available", area: 990, facing: "East" }, { id: "F2", status: "Available", area: 990, facing: "East" }] },
+      { floor: "2nd Floor", units: [{ id: "S1", status: "Available", area: 990, facing: "East" }, { id: "S2", status: "Available", area: 990, facing: "East" }] },
+      { floor: "3rd Floor", units: [{ id: "T1", status: "Available", area: 990, facing: "East" }, { id: "T2", status: "Available", area: 990, facing: "East" }] },
+      { floor: "4th Floor", units: [{ id: "4F1", status: "Available", area: 990, facing: "East" }, { id: "4F2", status: "Available", area: 990, facing: "East" }] },
+    ],
+    features: ["Lift", "Covered Parking", "East Facing", "3 BHK", "Balcony"],
+    description: "BK Aran is a premium 4-floor apartment complex in Tiruvallur with beautifully designed 3BHK units, modern finishes and all essential amenities.",
+    hasFloorPlan: true,
+    floorPlan: {
+      width: 40, depth: 60,
+      rooms: ["Living Area 9'9\"×20'7½\"", "Bedroom 10'0\"×11'7½\"", "Bedroom 10'0\"×9'6\"", "Bedroom 10'0\"×10'7½\"", "Kitchen 10'0\"×8'6\"", "Balcony 9'9\"×4'3\"", "2 Toilets", "Pooja"]
+    }
+  },
   {
     id: "bk-ams",
     name: "BK AMS",
+    subtitle: "Premium 3BHK Apartments",
     type: "Apartment",
     status: "Ongoing",
     location: "Sri Padmavathi Nagar, Periyakuppam Village, Rajajipuram, Tiruvallur",
     plotNo: "Plot No. 36",
     contact: "88708 00708",
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80",
-    elevationColor: "#f97316",
     floors: 3,
     totalFlats: 6,
-    flatTypes: [
-      { flat: "F1", area: 990, uds: 400, facing: "East" },
-      { flat: "F2", area: 990, uds: 400, facing: "East" },
-      { flat: "S1", area: 990, uds: 400, facing: "East" },
-      { flat: "S2", area: 990, uds: 400, facing: "East" },
-      { flat: "T1", area: 990, uds: 400, facing: "East" },
-      { flat: "T2", area: 990, uds: 400, facing: "East" },
-    ],
     plotSize: "40' × 60'",
-    features: ["Lift", "Covered Parking", "East Facing", "3 BHK", "Balcony"],
-    description: "BK AMS is a premium 3-floor apartment complex featuring 6 thoughtfully designed 3BHK units of 990 sqft each. Located in the prestigious Sri Padmavathi Nagar, Tiruvallur, this project exemplifies BK Homes' commitment to quality living spaces.",
-    has3D: true,
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80",
+    flatTypes: [
+      { flat: "F1", area: 990, uds: 400, facing: "East (Front)", status: "Booked" },
+      { flat: "F2", area: 990, uds: 400, facing: "East (Back)", status: "Available" },
+      { flat: "S1", area: 990, uds: 400, facing: "East (Front)", status: "Booked" },
+      { flat: "S2", area: 990, uds: 400, facing: "East (Back)", status: "Available" },
+      { flat: "T1", area: 990, uds: 400, facing: "East (Front)", status: "Booked" },
+      { flat: "T2", area: 990, uds: 400, facing: "East (Back)", status: "Available" },
+    ],
+    floorAvailability: [
+      { floor: "1st Floor", units: [{ id: "F1", status: "Booked", area: 990, facing: "East (Front)" }, { id: "F2", status: "Available", area: 990, facing: "East (Back)" }] },
+      { floor: "2nd Floor", units: [{ id: "S1", status: "Booked", area: 990, facing: "East (Front)" }, { id: "S2", status: "Available", area: 990, facing: "East (Back)" }] },
+      { floor: "3rd Floor", units: [{ id: "T1", status: "Booked", area: 990, facing: "East (Front)" }, { id: "T2", status: "Available", area: 990, facing: "East (Back)" }] },
+    ],
+    features: ["Lift", "Covered Parking", "East Facing", "3 BHK", "Balcony", "Pooja Room"],
+    description: "BK AMS is a premium 3-floor apartment complex featuring 6 thoughtfully designed 3BHK units of 990 sqft each. Ground floor is parking. Back-side flats (F2, S2, T2) are available.",
     hasFloorPlan: true,
-    // Floor plan dimensions from PDF
     floorPlan: {
       width: 32, depth: 52,
-      rooms: ["Living Area 9'9\" × 20'7½\"", "Bedroom 10'0\" × 11'7½\"", "Bedroom 10'0\" × 9'6\"", "Bedroom 10'0\" × 10'7½\"", "Kitchen 10'0\" × 10'7½\"", "Balcony 9'9\" × 4'3\"", "2 Toilets", "Pooja"]
+      rooms: ["Living Area 9'9\"×20'7½\"", "Bedroom 10'0\"×11'7½\"", "Bedroom 10'0\"×9'6\"", "Bedroom 10'0\"×10'7½\"", "Kitchen 10'0\"×8'6\"", "Balcony 9'9\"×4'3\"", "Toilet 7'10½\"×4'0\"", "Toilet 6'10½\"×4'0\"", "Pooja"]
     }
   },
   {
     id: "bk-surya",
     name: "BK Surya",
+    subtitle: "Spacious Living Redefined",
     type: "Apartment",
     status: "Ongoing",
     location: "Sri Padmavathi Nagar, Periyakuppam Village, Rajajipuram, Tiruvallur",
     plotNo: "Plot No. 37",
     contact: "88708 00708",
-    image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=900&q=80",
-    elevationColor: "#d97706",
     floors: 3,
     totalFlats: 5,
-    flatTypes: [
-      { flat: "F1", area: 1980, uds: 800, facing: "East" },
-      { flat: "S1", area: 990, uds: 400, facing: "East" },
-      { flat: "S2", area: 990, uds: 400, facing: "East" },
-      { flat: "T1", area: 990, uds: 400, facing: "East" },
-      { flat: "T2", area: 990, uds: 400, facing: "East" },
-    ],
     plotSize: "40' × 60'",
-    features: ["Lift", "Covered Parking", "East Facing", "3 BHK", "Balcony", "Utility"],
-    description: "BK Surya is an elegantly designed apartment complex featuring a spacious 1980 sqft first-floor unit and four 990 sqft flats on upper floors. The distinctive orange-terra facade with curved architectural accents makes this a landmark in Tiruvallur.",
-    has3D: true,
+    image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=900&q=80",
+    flatTypes: [
+      { flat: "F1", area: 1980, uds: 800, facing: "East", status: "Available" },
+      { flat: "S1", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "S2", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "T1", area: 990, uds: 400, facing: "East", status: "Available" },
+      { flat: "T2", area: 990, uds: 400, facing: "East", status: "Available" },
+    ],
+    floorAvailability: [
+      { floor: "1st Floor", units: [{ id: "F1", status: "Available", area: 1980, facing: "East (Full Floor – 4BHK Duplex)" }] },
+      { floor: "2nd Floor", units: [{ id: "S1", status: "Available", area: 990, facing: "East" }, { id: "S2", status: "Available", area: 990, facing: "East" }] },
+      { floor: "3rd Floor", units: [{ id: "T1", status: "Available", area: 990, facing: "East" }, { id: "T2", status: "Available", area: 990, facing: "East" }] },
+    ],
+    features: ["Lift", "Covered Parking", "East Facing", "3 BHK / 4 BHK Duplex", "Balcony", "Utility Room"],
+    description: "BK Surya features a unique layout — a spacious 1980 sqft first-floor duplex and four 990 sqft 3BHK flats. 2nd and 3rd floors are fully available. The distinctive curved facade makes this a landmark in Tiruvallur.",
     hasFloorPlan: true,
     floorPlan: {
       width: 32, depth: 52,
-      rooms: ["Living Area 19'9\" × 13'7½\"", "Dining Area 9'9\" × 20'4\"", "Master Bedroom 13'4\" × 10'10½\"", "Bedroom 10'0\" × 10'7½\"", "Bedroom 10'0\" × 16'3\"", "Kitchen 10'0\" × 11'9\"", "Balcony 9'9\" × 5'3\"", "Utility 10'0\" × 3'11\""]
+      rooms: [
+        "Living Area 19'9\"×13'7½\" (1st Floor)",
+        "Dining Area 9'9\"×20'4\"",
+        "Master Bedroom 13'4\"×10'10½\"",
+        "Bedroom 10'0\"×10'7½\"",
+        "Bedroom 10'0\"×16'3\"",
+        "Kitchen 10'0\"×11'9\"",
+        "Balcony 9'9\"×5'3\"",
+        "Utility 10'0\"×3'11\"",
+        "2 Toilets"
+      ]
     }
   },
+];
+
+// ── ONGOING VILLA PROJECTS ───────────────────────────────────────────────────
+export const ongoingVillas = [
   {
     id: "bk-skandha-south",
     name: "BK Skandha South",
     type: "Individual Villa",
-    status: "Completed",
+    status: "Ongoing",
     location: "Poonthottam Nagar, Tiruvallur",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80",
-    elevationColor: "#f59e0b",
+    contact: "88708 00708",
     floors: 2,
     plotSize: "25'1\" × 50'",
     builtArea: "1145 sqft",
-    features: ["Portico 15'0\"×14'3\"", "2 Bedrooms", "Living Hall", "Dining Area", "Kitchen", "2 Toilets", "Staircase"],
-    description: "BK Skandha South is a beautifully designed individual villa on a 25×50 plot. The contemporary facade features warm wood-toned vertical slats, stone cladding accents, decorative gate panels, and lush landscaping — a perfect family home.",
-    has3D: true,
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80",
+    features: ["Portico 15'0\"×14'3\"", "2 Bedrooms", "Living Hall", "Dining Area", "Kitchen", "2 Toilets", "Private Compound"],
+    description: "BK Skandha South is a beautifully designed individual villa on a 25×50 plot. Contemporary facade with warm wood-toned vertical slats, stone cladding accents, decorative gate panels, and lush landscaping.",
     hasFloorPlan: true,
     floorPlan: {
-      width: 25.1, depth: 50,
       groundArea: 1020, headRoom: 125, totalArea: 1145,
-      rooms: ["Living Hall 11'9\"×15'0\"", "Bedroom 10'1\"×12'0\"", "Bedroom 9'1\"×12'0\"", "Dining 7'9\"×6'1½\"", "Kitchen 7'4½\"×8'0\"", "Toilet 10'1\"×4'6\"", "Toilet 5'8½\"×4'6\"", "Portico 15'0\"×14'3\""]
+      width: 25.1, depth: 50,
+      rooms: [
+        "Living Hall 11'9\"×15'0\"",
+        "Bedroom 10'1\"×12'0\"",
+        "Bedroom 9'1\"×12'0\"",
+        "Dining Area 7'9\"×6'1½\"",
+        "Kitchen (O/K) 7'4½\"×8'0\"",
+        "Toilet 10'1\"×4'6\"",
+        "Toilet 5'8½\"×4'6\"",
+        "Portico 15'0\"×14'3\"",
+        "Staircase"
+      ]
     }
   },
   {
-    id: "bk-chandra",
-    name: "BK Chandra",
-    type: "Apartment",
+    id: "mr-hitech-city",
+    name: "M.R HI-Tech City",
+    type: "Individual Villa",
     status: "Ongoing",
-    location: "Vivekananda Salai, Tiruvallur",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80",
-    elevationColor: "#6366f1",
-    floors: 6,
-    description: "BK Chandra is a landmark 6-floor apartment complex on Vivekananda Salai, Tiruvallur — a high-rise that redefines the city skyline with its bold vertical massing and contemporary finishes.",
-    has3D: false,
+    location: "Tiruvallur",
+    contact: "88708 00708",
+    floors: 2,
+    plotSize: "Contact for Details",
+    builtArea: "Contact for Details",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80",
+    features: ["Modern Design", "Individual Villa", "Premium Finishes", "Private Compound"],
+    description: "M.R HI-Tech City is a premium individual villa project in Tiruvallur with modern design, premium finishes, and thoughtful space planning. Contact us for floor plan and size details.",
     hasFloorPlan: false,
+    floorPlan: null,
   },
 ];
 
+// ── COMPLETED PROJECTS ────────────────────────────────────────────────────────
 export const completedProjects = [
+  { name: "BK Skandha North", type: "Villa", location: "Tiruvallur" },
   { name: "Saraswathi Manor", type: "Apartment", location: "Balaji Nagar, Medavakkam" },
   { name: "Babu Manor", type: "Apartment", location: "Balaji Nagar, Medavakkam" },
   { name: "Ambu Manor", type: "Apartment", location: "Balaji Nagar, Medavakkam" },
@@ -200,7 +315,65 @@ export const completedProjects = [
   { name: "BK Trinity", type: "Villa", location: "Tiruvallur" },
   { name: "BK Twins", type: "Villa", location: "Tiruvallur" },
   { name: "BK Thangam", type: "Villa", location: "Tiruvallur" },
-  { name: "BK Skandha North", type: "Villa", location: "Tiruvallur" },
   { name: "BK Square", type: "Villa", location: "Poonthottam Nagar, Tiruvallur" },
   { name: "BK Ratan", type: "Commercial", location: "Tiruvallur" },
+];
+
+// ── CONTRACT WORK ─────────────────────────────────────────────────────────────
+export const contractWork = {
+  ongoing: [
+    { name: "Udhyakumar", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" },
+    { name: "Rajkamal", location: "Tiruvallur", image: "/assets/projects/Rajkamal_Contract_Work copy.jpeg", hasElevation: true },
+    { name: "Vilivadhan", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80" },
+    { name: "Vinoth", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=700&q=80" },
+    { name: "Vasudvan", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80" },
+  ],
+  completed: [
+    { name: "Suresh", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=700&q=80" },
+    { name: "Sivagurunadhar", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80" },
+  ]
+};
+
+// ── MOHAN GARDENS (Real Estate) ───────────────────────────────────────────────
+export const mohanGardenPlots = [
+  { no: 1, area: 1080, status: "Available" },
+  { no: 2, area: 1066, status: "Available" },
+  { no: 3, area: 1047.5, status: "Available" },
+  { no: 4, area: 1560, status: "Booked" },
+  { no: 5, area: 1560, status: "Available" },
+  { no: 6, area: 1560, status: "Available" },
+  { no: 7, area: 1560, status: "Available" },
+  { no: 8, area: 1560, status: "Booked" },
+  { no: 9, area: 1560, status: "Available" },
+  { no: 10, area: 1560, status: "Available" },
+  { no: 11, area: 1560, status: "Available" },
+  { no: 12, area: 1607.5, status: "Booked" },
+  { no: 13, area: 1822.5, status: "Available" },
+  { no: 14, area: 1810, status: "Available" },
+  { no: 15, area: 1560, status: "Available" },
+  { no: 16, area: 1660, status: "Available" },
+  { no: 17, area: 1041, status: "Available" },
+  { no: 18, area: 1164, status: "Available" },
+  { no: 19, area: 1228, status: "Available" },
+  { no: 20, area: 1062, status: "Available" },
+  { no: 21, area: 1534, status: "Available" },
+  { no: 22, area: 1473, status: "Available" },
+  { no: 23, area: 1485, status: "Available" },
+  { no: 24, area: 1550, status: "Available" },
+  { no: 25, area: 1614, status: "Available" },
+  { no: 26, area: 1678, status: "Available" },
+  { no: 27, area: 1742, status: "Available" },
+  { no: 28, area: 1806, status: "Available" },
+  { no: 29, area: 1871, status: "Available" },
+  { no: 30, area: 1937, status: "Available" },
+  { no: 31, area: 1388, status: "Available" },
+  { no: 32, area: 1425, status: "Available" },
+  { no: 33, area: 1654, status: "Available" },
+];
+
+// Legacy export for backward compat
+export const featuredProjects = [
+  ...ongoingApartments.slice(0, 2),
+  ...ongoingVillas.slice(0, 1),
+  ongoingApartments[3],
 ];

@@ -20,10 +20,10 @@ function useReveal() {
 const timeline = [
   { year: '2011', event: 'BK Homes founded in Tiruvallur', detail: 'Started with a vision to deliver quality homes at honest prices, rooted in the values of our agriculture-based parent company.' },
   { year: '2013', event: 'First apartment complex delivered', detail: 'Saraswathi Manor, Medavakkam — our first multi-unit residential project, setting the quality benchmark.' },
-  { year: '2016', event: 'Expanded to Chennai markets', detail: 'Branch office opened at Medavakkam, Chennai. Projects launched in Medavakkam, Perambur, Villivakkam, and Korattur.' },
+  { year: '2016', event: 'Expanded to Chennai markets', detail: 'Projects launched in Medavakkam, Perambur, Villivakkam, and Korattur. Growing reputation for quality and trust.' },
   { year: '2019', event: 'Crossed 30+ completed projects', detail: 'Delivered over 30 individual homes and apartments. Reputation for on-time delivery and premium finishes grows.' },
   { year: '2022', event: 'Launched Real Estate division', detail: 'Expanded into real estate services — plots, ready-to-move properties, and investment advisory.' },
-  { year: '2025', event: 'BK AMS, BK Surya, BK Chandra ongoing', detail: 'Three premium apartment projects currently under construction. First-ever 3D interactive website launched.' },
+  { year: '2026', event: 'BK AMS, BK Surya, BK Chandra ongoing', detail: 'Four premium apartment projects and two individual villas under construction. Mohan Garden gated community launched.' },
 ];
 
 export default function AboutPage() {
@@ -235,8 +235,16 @@ export default function AboutPage() {
       </section>
 
       {/* ── Timeline ── */}
-      <section style={{ padding: '120px 80px', background: '#0a0818' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+      <section style={{ padding: '120px 80px', background: '#0a0818', position: 'relative', overflow: 'hidden' }}>
+        {/* Decorative background */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: 'linear-gradient(rgba(201,168,76,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.02) 1px, transparent 1px)',
+          backgroundSize: '80px 80px',
+          pointerEvents: 'none',
+        }} />
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px', position: 'relative' }}>
           <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
           <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>
             Our Journey
@@ -245,52 +253,83 @@ export default function AboutPage() {
         <h2 style={{
           fontFamily: 'Cormorant Garamond, serif',
           fontSize: 'clamp(36px, 4vw, 60px)',
-          fontWeight: 300, marginBottom: '70px',
+          fontWeight: 300, marginBottom: '70px', position: 'relative',
         }}>
           14 Years of <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Excellence</em>
         </h2>
 
-        <div ref={timelineRef} className="reveal" style={{ position: 'relative', maxWidth: '900px' }}>
-          {/* Vertical line */}
+        <div ref={timelineRef} className="reveal" style={{ position: 'relative', maxWidth: '1000px', margin: '0 auto' }}>
+          {/* Center vertical line */}
           <div style={{
-            position: 'absolute', left: '72px', top: 0, bottom: 0,
-            width: '1px', background: 'linear-gradient(to bottom, #C9A84C, rgba(201,168,76,0.1))',
+            position: 'absolute', left: '50%', top: 0, bottom: 0,
+            width: '2px',
+            background: 'linear-gradient(to bottom, #C9A84C, rgba(201,168,76,0.08))',
+            transform: 'translateX(-50%)',
           }} />
 
-          {timeline.map((item, i) => (
-            <div key={i} style={{
-              display: 'flex', gap: '40px', alignItems: 'flex-start',
-              marginBottom: '52px', position: 'relative',
-            }}>
-              {/* Year */}
-              <div style={{
-                width: '80px', flexShrink: 0,
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: '20px', fontWeight: 400,
-                color: '#C9A84C', textAlign: 'right', paddingTop: '4px',
-              }}>{item.year}</div>
+          {timeline.map((item, i) => {
+            const isLeft = i % 2 === 0;
+            return (
+              <div key={i} style={{
+                display: 'flex',
+                justifyContent: isLeft ? 'flex-start' : 'flex-end',
+                marginBottom: '48px',
+                position: 'relative',
+                paddingLeft: isLeft ? '0' : '52%',
+                paddingRight: isLeft ? '52%' : '0',
+              }}>
+                {/* Center dot */}
+                <div style={{
+                  position: 'absolute', left: '50%', transform: 'translateX(-50%)',
+                  width: '16px', height: '16px', borderRadius: '50%',
+                  background: '#0a0818',
+                  border: '2px solid #C9A84C',
+                  zIndex: 2,
+                  boxShadow: '0 0 20px rgba(201,168,76,0.3)',
+                  top: '8px',
+                }} />
 
-              {/* Dot */}
-              <div style={{
-                width: '12px', height: '12px', borderRadius: '50%',
-                background: '#C9A84C', flexShrink: 0,
-                marginTop: '7px', position: 'relative', zIndex: 1,
-                boxShadow: '0 0 16px rgba(201,168,76,0.4)',
-              }} />
-
-              {/* Content */}
-              <div style={{ flex: 1 }}>
-                <h4 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: '22px', fontWeight: 400,
-                  color: '#F8F6F0', marginBottom: '8px',
-                }}>{item.event}</h4>
-                <p style={{ fontSize: '14px', color: 'rgba(248,246,240,0.5)', lineHeight: 1.75 }}>
-                  {item.detail}
-                </p>
+                {/* Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: isLeft ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  style={{
+                    padding: '28px 32px',
+                    border: '1px solid rgba(201,168,76,0.12)',
+                    background: 'rgba(10,8,24,0.6)',
+                    position: 'relative',
+                    maxWidth: '420px',
+                    width: '100%',
+                  }}
+                >
+                  {/* Year badge */}
+                  <div style={{
+                    display: 'inline-block',
+                    padding: '4px 16px',
+                    background: 'rgba(201,168,76,0.1)',
+                    border: '1px solid rgba(201,168,76,0.3)',
+                    fontSize: '12px', letterSpacing: '3px',
+                    color: '#C9A84C',
+                    fontFamily: 'Cormorant Garamond, serif',
+                    fontWeight: 600,
+                    marginBottom: '16px',
+                  }}>
+                    {item.year}
+                  </div>
+                  <h4 style={{
+                    fontFamily: 'Cormorant Garamond, serif',
+                    fontSize: '20px', fontWeight: 400,
+                    color: '#F8F6F0', marginBottom: '8px',
+                  }}>{item.event}</h4>
+                  <p style={{ fontSize: '13px', color: 'rgba(248,246,240,0.5)', lineHeight: 1.7 }}>
+                    {item.detail}
+                  </p>
+                </motion.div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -311,10 +350,10 @@ export default function AboutPage() {
           fontSize: 'clamp(32px, 4vw, 56px)',
           fontWeight: 300, marginBottom: '60px',
         }}>
-          Two Offices, <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>One Standard</em>
+          Our <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Office</em>
         </h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '24px', maxWidth: '600px' }}>
           {Object.values(company.offices).map((office, i) => (
             <div key={i} style={{
               padding: '48px 44px',
@@ -324,7 +363,7 @@ export default function AboutPage() {
             }}>
               <div style={{
                 position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
-                background: i === 0 ? '#C9A84C' : '#443199',
+                background: '#C9A84C',
               }} />
               <div style={{
                 fontSize: '10px', letterSpacing: '4px', color: '#C9A84C',
@@ -341,24 +380,22 @@ export default function AboutPage() {
                   {office.address}
                 </p>
               </div>
-              {i === 0 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <a href="tel:8870800708" style={{
-                    display: 'flex', gap: '10px', alignItems: 'center',
-                    fontSize: '14px', color: 'rgba(248,246,240,0.7)', textDecoration: 'none',
-                  }}>
-                    <Phone size={13} style={{ color: '#C9A84C' }} />
-                    88708 00708 / 75100 20044
-                  </a>
-                  <a href="mailto:bkhomes2011@gmail.com" style={{
-                    display: 'flex', gap: '10px', alignItems: 'center',
-                    fontSize: '14px', color: 'rgba(248,246,240,0.7)', textDecoration: 'none',
-                  }}>
-                    <Mail size={13} style={{ color: '#C9A84C' }} />
-                    bkhomes2011@gmail.com
-                  </a>
-                </div>
-              )}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <a href="tel:8870800708" style={{
+                  display: 'flex', gap: '10px', alignItems: 'center',
+                  fontSize: '14px', color: 'rgba(248,246,240,0.7)', textDecoration: 'none',
+                }}>
+                  <Phone size={13} style={{ color: '#C9A84C' }} />
+                  88708 00708
+                </a>
+                <a href="mailto:bkhomes2011@gmail.com" style={{
+                  display: 'flex', gap: '10px', alignItems: 'center',
+                  fontSize: '14px', color: 'rgba(248,246,240,0.7)', textDecoration: 'none',
+                }}>
+                  <Mail size={13} style={{ color: '#C9A84C' }} />
+                  bkhomes2011@gmail.com
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -367,7 +404,7 @@ export default function AboutPage() {
       {/* ── CTA ── */}
       <section style={{
         padding: '80px',
-        background: 'linear-gradient(135deg, #443199, #2e2070)',
+        background: 'linear-gradient(135deg, rgba(201,168,76,0.12), #0d0b1e)',
         textAlign: 'center',
         position: 'relative', overflow: 'hidden',
       }}>

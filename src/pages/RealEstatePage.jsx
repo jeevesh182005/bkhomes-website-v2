@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MapPin, ArrowRight, Phone, Home, Building2, Maximize2 } from 'lucide-react';
-import { company } from '../data/projects';
+import { MapPin, ArrowRight, Phone, Hop as Home, Building2, Maximize2, Shield, TreePine } from 'lucide-react';
+import { company, mohanGardenPlots } from '../data/projects';
+
+const availableCount = mohanGardenPlots.filter(p => p.status === 'Available').length;
 
 const listings = [
   {
@@ -39,7 +41,7 @@ const listings = [
     id: 're-4', name: 'BK Skandha South — Individual Villa', type: 'Villa',
     location: 'Poonthottam Nagar, Tiruvallur',
     area: '1145 sqft', plotSize: '25×50 ft',
-    status: 'Completed', facing: 'South',
+    status: 'Ongoing', facing: 'South',
     price: 'Contact for Price',
     features: ['2 Bedrooms', 'Living + Dining', 'Portico', 'Private Compound'],
     img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
@@ -54,15 +56,6 @@ const listings = [
     features: ['High-Rise', 'Lift', 'Premium Location', 'Near Highway'],
     img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
     projectId: 'bk-chandra',
-  },
-  {
-    id: 're-6', name: 'Residential Plot — Rajajipuram', type: 'Plot',
-    location: 'Rajajipuram, Tiruvallur',
-    area: '1200 sqft', plotSize: '30×40 ft',
-    status: 'Available', facing: 'East',
-    price: 'Contact for Price',
-    features: ['East Facing', 'Panchayat Approved', 'Clear Title', 'Near Bus Stand'],
-    img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
   },
 ];
 
@@ -105,6 +98,108 @@ export default function RealEstatePage() {
               </div>
             ))}
           </div>
+        </motion.div>
+      </section>
+
+      {/* Mohan Garden — Featured Gated Community */}
+      <section style={{
+        padding: '60px 80px',
+        background: '#0d0b1e',
+        borderBottom: '1px solid rgba(201,168,76,0.1)',
+      }}>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+            <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
+            <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>Featured</span>
+          </div>
+
+          <Link to="/real-estate/mohan-garden" style={{ textDecoration: 'none' }}>
+            <div style={{
+              display: 'grid', gridTemplateColumns: '1.2fr 1fr',
+              border: '1px solid rgba(201,168,76,0.2)',
+              background: 'linear-gradient(135deg, rgba(201,168,76,0.06), rgba(10,8,24,0.9))',
+              overflow: 'hidden',
+              transition: 'border-color 0.3s',
+              cursor: 'pointer',
+            }}
+            onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'}
+            onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(201,168,76,0.2)'}
+            >
+              {/* Image side */}
+              <div style={{ position: 'relative', minHeight: '360px' }}>
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  backgroundImage: 'url(https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=80)',
+                  backgroundSize: 'cover', backgroundPosition: 'center',
+                }} />
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: 'linear-gradient(to right, transparent 40%, rgba(10,8,24,0.9) 100%)',
+                }} />
+                <div style={{
+                  position: 'absolute', top: '20px', left: '20px',
+                  display: 'flex', gap: '8px',
+                }}>
+                  <span style={{
+                    padding: '6px 14px',
+                    background: 'rgba(201,168,76,0.2)',
+                    border: '1px solid rgba(201,168,76,0.5)',
+                    fontSize: '9px', letterSpacing: '2px',
+                    color: '#C9A84C', textTransform: 'uppercase',
+                  }}>Gated Community</span>
+                </div>
+              </div>
+
+              {/* Content side */}
+              <div style={{ padding: '48px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                  <Shield size={16} style={{ color: '#C9A84C' }} />
+                  <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase' }}>
+                    Premium Gated Community
+                  </span>
+                </div>
+                <h2 style={{
+                  fontFamily: 'Cormorant Garamond, serif',
+                  fontSize: '40px', fontWeight: 300,
+                  color: '#F8F6F0', marginBottom: '8px',
+                }}>
+                  Mohan <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Garden</em>
+                </h2>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+                  <MapPin size={12} style={{ color: '#C9A84C' }} />
+                  <span style={{ fontSize: '12px', color: 'rgba(248,246,240,0.5)' }}>Tiruvallur</span>
+                </div>
+                <p style={{ fontSize: '14px', color: 'rgba(248,246,240,0.55)', lineHeight: 1.8, marginBottom: '28px' }}>
+                  {mohanGardenPlots.length} residential plots with clear titles and panchayat approval.
+                  {availableCount} plots still available. View the interactive plot map to check availability.
+                </p>
+
+                <div style={{ display: 'flex', gap: '16px', marginBottom: '28px', flexWrap: 'wrap' }}>
+                  {[
+                    { icon: <Maximize2 size={14} />, label: `${mohanGardenPlots.length} Plots` },
+                    { icon: <TreePine size={14} />, label: 'Gated Community' },
+                    { icon: <Shield size={14} />, label: 'Clear Titles' },
+                  ].map((f, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'rgba(248,246,240,0.6)', fontSize: '12px' }}>
+                      <span style={{ color: '#C9A84C' }}>{f.icon}</span>{f.label}
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  fontSize: '11px', letterSpacing: '3px', color: '#C9A84C',
+                  textTransform: 'uppercase',
+                }}>
+                  View Plot Map <ArrowRight size={14} />
+                </div>
+              </div>
+            </div>
+          </Link>
         </motion.div>
       </section>
 

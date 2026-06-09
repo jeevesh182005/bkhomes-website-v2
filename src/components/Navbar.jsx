@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -14,6 +14,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -23,6 +24,16 @@ export default function Navbar() {
 
   useEffect(() => { setMenuOpen(false); }, [location]);
 
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+    }
+  };
+
   return (
     <>
       <motion.nav
@@ -31,7 +42,7 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-          padding: scrolled ? '14px 48px' : '24px 48px',
+          padding: scrolled ? '10px 48px' : '20px 48px',
           background: scrolled
             ? 'rgba(10,8,24,0.97)'
             : 'linear-gradient(to bottom, rgba(10,8,24,0.9), transparent)',
@@ -42,7 +53,11 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '14px', textDecoration: 'none' }}>
+        <a
+          href="/"
+          onClick={handleLogoClick}
+          style={{ display: 'flex', alignItems: 'center', gap: '14px', textDecoration: 'none' }}
+        >
           <img src="/logo.png" alt="BK Homes" style={{ height: '52px', width: 'auto', objectFit: 'contain' }} />
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
             <span style={{
@@ -55,11 +70,11 @@ export default function Navbar() {
               color: '#C9A84C', textTransform: 'uppercase', marginTop: '2px'
             }}>Premium · Construction · Real Estate</span>
           </div>
-        </Link>
+        </a>
 
         {/* Desktop Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
-          <ul style={{ display: 'flex', gap: '36px', listStyle: 'none', alignItems: 'center' }}>
+        <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+          <ul style={{ display: 'flex', gap: '36px', listStyle: 'none', alignItems: 'center', margin: 0, padding: 0 }}>
             {navLinks.map(link => (
               <li key={link.path}>
                 <Link
@@ -90,19 +105,21 @@ export default function Navbar() {
             <Phone size={13} />
             <span>88708 00708</span>
           </a>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              display: 'none',
-              background: 'none', border: 'none',
-              color: '#C9A84C', cursor: 'pointer',
-            }}
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          className="nav-mobile-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{
+            background: 'none', border: 'none',
+            color: '#C9A84C', cursor: 'pointer',
+            display: 'none',
+            padding: '8px',
+          }}
+        >
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </motion.nav>
 
       {/* Mobile Menu */}
@@ -122,6 +139,15 @@ export default function Navbar() {
               gap: '32px',
             }}
           >
+            <button
+              onClick={() => setMenuOpen(false)}
+              style={{
+                position: 'absolute', top: '24px', right: '24px',
+                background: 'none', border: 'none', color: '#C9A84C', cursor: 'pointer',
+              }}
+            >
+              <X size={28} />
+            </button>
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.path}
@@ -134,7 +160,8 @@ export default function Navbar() {
                   style={{
                     fontFamily: 'Cormorant Garamond, serif',
                     fontSize: '36px', fontWeight: 300,
-                    color: '#F8F6F0', textDecoration: 'none',
+                    color: location.pathname === link.path ? '#C9A84C' : '#F8F6F0',
+                    textDecoration: 'none',
                     letterSpacing: '4px',
                   }}
                 >
@@ -150,6 +177,7 @@ export default function Navbar() {
               className="btn-gold"
               style={{ marginTop: '20px' }}
             >
+              <Phone size={14} />
               <span>Call Us Now</span>
             </motion.a>
           </motion.div>

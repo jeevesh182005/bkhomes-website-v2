@@ -137,3 +137,87 @@ section { position: relative; }
 .btn-outline:hover::before { transform: translateX(0); }
 .btn-outline:hover { border-color: var(--gold); }
 
+/* ── MOBILE RESPONSIVE ─────────────────────────────────────────────── */
+
+/* Tablet — 1024px */
+@media (max-width: 1024px) {
+  /* Navbar */
+  .nav-desktop { display: none !important; }
+  .nav-mobile-toggle { display: block !important; }
+
+  /* Footer grid */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 40px !important;
+    padding: 0 24px !important;
+  }
+
+  /* Hero content */
+  .hero-content { padding: 60px 32px !important; }
+  .hero-stats { gap: 20px !important; flex-wrap: wrap !important; }
+
+  /* About section */
+  .about-section { padding: 60px 32px !important; }
+  .stats-grid { grid-templateColumns: repeat(2, 1fr) !important; }
+
+  /* Project names grid */
+  .project-names-grid { gridTemplateColumns: 1fr 1fr !important; }
+  .testimonials-grid { padding: 60px 32px !important; }
+
+  /* Detail page */
+  .detail-padding { padding: 60px 32px !important; }
+  .detail-grid { gridTemplateColumns: 1fr !important; }
+
+  /* General sections */
+  section { padding-left: 24px !important; padding-right: 24px !important; }
+}
+
+/* Mobile — 768px */
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none !important; }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Hero */
+  .hero-content { padding: 40px 20px !important; }
+  .hero-stats { gap: 12px !important; }
+
+  /* Stats grid */
+  .stats-grid { grid-templateColumns: 1fr 1fr !important; gap: 12px !important; }
+
+  /* Project names */
+  .project-names-grid { gridTemplateColumns: 1fr !important; }
+  .testimonials-grid { padding: 40px 20px !important; }
+
+  /* Detail page */
+  .detail-padding { padding: 40px 20px !important; }
+
+  /* Nav padding */
+  nav { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Section general */
+  section { padding-left: 16px !important; padding-right: 16px !important; }
+}
+
+/* Small mobile — 480px */
+@media (max-width: 480px) {
+  .hero-stats { flex-direction: column !important; align-items: flex-start !important; }
+  .stats-grid { gridTemplateColumns: 1fr !important; }
+}
+
+/* ── PAGE TRANSITION ───────────────────────────────────────────────── */
+.page-transition-left,
+.page-transition-right {
+  position: fixed; top: 0; bottom: 0;
+  width: 50%; z-index: 9999;
+  background: #0a0818;
+  display: flex; align-items: center; justify-content: center;
+}
+.page-transition-left { left: 0; justify-content: flex-end; padding-right: 20px; }
+.page-transition-right { right: 0; justify-content: flex-start; padding-left: 20px; }
+

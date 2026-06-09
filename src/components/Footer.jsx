@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import { company } from '../data/projects';
 
-// Social icon SVGs (lucide doesn't include brand icons)
 const IgIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
@@ -17,7 +17,6 @@ const YtIcon = () => (
     <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
   </svg>
 );
-import { company } from '../data/projects';
 
 export default function Footer() {
   return (
@@ -32,7 +31,9 @@ export default function Footer() {
         gap: '60px',
         marginBottom: '60px',
         maxWidth: '1400px', margin: '0 auto 60px',
-      }}>
+      }}
+      className="footer-grid"
+      >
         {/* Brand */}
         <div>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '20px' }}>
@@ -53,15 +54,15 @@ export default function Footer() {
             {company.tamilQuoteEng}
           </p>
           <p style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(248,246,240,0.5)', maxWidth: '300px' }}>
-            Building dreams into reality since 2011. Premium homes, apartments & real estate across Tiruvallur and Chennai.
+            Building dreams into reality since 2011. Premium homes, apartments & real estate across Tiruvallur.
           </p>
           <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
             {[
-              { icon: <IgIcon />, href: '#' },
-              { icon: <FbIcon />, href: '#' },
-              { icon: <YtIcon />, href: '#' },
+              { icon: <IgIcon />, href: 'https://www.instagram.com/bkhomes_thiruvallur' },
+              { icon: <FbIcon />, href: 'https://www.facebook.com/bkhomes.in' },
+              { icon: <YtIcon />, href: 'https://www.youtube.com/@BKHOMESTiruvallur' },
             ].map((s, i) => (
-              <a key={i} href={s.href} style={{
+              <a key={i} href={s.href} target="_blank" rel="noreferrer" style={{
                 width: '38px', height: '38px',
                 border: '1px solid rgba(248,246,240,0.1)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -82,7 +83,7 @@ export default function Footer() {
           <h5 style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '24px' }}>
             Quick Links
           </h5>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', padding: 0 }}>
             {['Projects', 'Real Estate', 'About Us', 'Contact'].map(l => (
               <li key={l}>
                 <Link
@@ -101,7 +102,7 @@ export default function Footer() {
           <h5 style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '24px' }}>
             Our Services
           </h5>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', padding: 0 }}>
             {['Apartment Buildings', 'Individual Villas', 'Custom Homes', 'Real Estate', 'Contract Work', 'Joint Venture'].map(s => (
               <li key={s}>
                 <span style={{ fontSize: '14px', color: 'rgba(248,246,240,0.5)' }}>{s}</span>
@@ -118,10 +119,7 @@ export default function Footer() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             <a href="tel:8870800708" style={{ display: 'flex', gap: '12px', textDecoration: 'none' }}>
               <Phone size={15} style={{ color: '#C9A84C', marginTop: '2px', flexShrink: 0 }} />
-              <div>
-                <div style={{ fontSize: '14px', color: 'rgba(248,246,240,0.7)' }}>88708 00708</div>
-                <div style={{ fontSize: '13px', color: 'rgba(248,246,240,0.4)' }}>75100 20044</div>
-              </div>
+              <div style={{ fontSize: '14px', color: 'rgba(248,246,240,0.7)' }}>88708 00708</div>
             </a>
             <a href="mailto:bkhomes2011@gmail.com" style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', textDecoration: 'none' }}>
               <Mail size={15} style={{ color: '#C9A84C', marginTop: '2px', flexShrink: 0 }} />
@@ -130,7 +128,7 @@ export default function Footer() {
             <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
               <MapPin size={15} style={{ color: '#C9A84C', marginTop: '2px', flexShrink: 0 }} />
               <div>
-                <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#C9A84C', marginBottom: '4px' }}>CORPORATE</div>
+                <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#C9A84C', marginBottom: '4px', textTransform: 'uppercase' }}>Corporate Office</div>
                 <div style={{ fontSize: '13px', color: 'rgba(248,246,240,0.6)', lineHeight: 1.7 }}>
                   Plot No. 8C, Vivekananda Salai,<br />Rajajipuram, Tiruvallur – 602 001
                 </div>
@@ -146,9 +144,10 @@ export default function Footer() {
         paddingTop: '32px',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         maxWidth: '1400px', margin: '0 auto',
+        flexWrap: 'wrap', gap: '12px',
       }}>
         <p style={{ fontSize: '12px', color: 'rgba(248,246,240,0.3)', letterSpacing: '1px' }}>
-          © 2025 BK Homes. All rights reserved. | Think Home, Think BK Homes
+          © 2026 BK Homes. All rights reserved. | Think Home, Think BK Homes
         </p>
         <p style={{ fontSize: '12px', color: 'rgba(248,246,240,0.3)', letterSpacing: '1px' }}>
           MD: K. Mohan Kumar | Est. 2011

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, MessageCircle, Clock, Send, CheckCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Clock, Send, CircleCheck as CheckCircle } from 'lucide-react';
 import { company } from '../data/projects';
 
 export default function ContactPage() {
@@ -189,7 +189,7 @@ export default function ContactPage() {
                 icon: <Phone size={20} />,
                 label: 'Call Us',
                 primary: '88708 00708',
-                secondary: '75100 20044',
+                secondary: 'Direct line — immediate response',
                 href: 'tel:8870800708',
                 cta: 'Call Now',
               },
