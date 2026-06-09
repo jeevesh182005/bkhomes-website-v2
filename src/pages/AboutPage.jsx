@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import officeImg from '../assets/Office.jpg';
 import { ArrowRight, Award, Users, Building2, MapPin, Phone, Mail } from 'lucide-react';
 import { company, completedProjects } from '../data/projects';
 
@@ -151,7 +152,7 @@ export default function AboutPage() {
         }}>
           <div style={{
             position: 'absolute', inset: 0,
-            backgroundImage: 'url(/office.jpg)',
+            backgroundImage: `url(${officeImg})`,
             backgroundSize: 'cover', backgroundPosition: 'center top',
           }} />
           <div style={{

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, MessageCircle, Clock, Send, CircleCheck as CheckCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Clock, Send, CircleCheck as CheckCircle, Navigation } from 'lucide-react';
 import { company } from '../data/projects';
 
 export default function ContactPage() {
@@ -263,9 +263,27 @@ export default function ContactPage() {
                     <div style={{ fontSize: '10px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '8px' }}>
                       {office.label}
                     </div>
-                    <p style={{ fontSize: '14px', color: 'rgba(248,246,240,0.65)', lineHeight: 1.75 }}>
+                    <p style={{ fontSize: '14px', color: 'rgba(248,246,240,0.65)', lineHeight: 1.75, marginBottom: '12px' }}>
                       {office.address}
                     </p>
+                    <a
+                      href="https://www.google.com/maps/search/BK+Homes/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: '6px',
+                        fontSize: '11px', letterSpacing: '2px', color: '#C9A84C',
+                        textDecoration: 'none', textTransform: 'uppercase',
+                        border: '1px solid rgba(201,168,76,0.3)',
+                        padding: '8px 16px',
+                        transition: 'all 0.3s',
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.1)'; e.currentTarget.style.borderColor = '#C9A84C'; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.3)'; }}
+                    >
+                      <Navigation size={12} />
+                      Get Directions
+                    </a>
                   </div>
                 </div>
               </div>

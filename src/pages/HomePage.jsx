@@ -1,8 +1,64 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Phone, MapPin, Star, Building2, Hop as Home, Hammer, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { company, ongoingApartments, ongoingVillas, services } from '../data/projects';
+import officeImg from '../assets/Office.jpg';
+import bkChandraImg from '../assets/projects/BK_Chandra.png';
+import bkAmsSuryaImg from '../assets/projects/BK_AMS_&_Surya.png';
+import bkSkandhaImg from '../assets/projects/BK_Skandha.png';
+import bkAranImg from '../assets/projects/BKAran_Elevation copy.jpeg';
+
+const projectImages = {
+  'bk-chandra': bkChandraImg,
+  'bk-aran': bkAranImg,
+  'bk-ams': bkAmsSuryaImg,
+  'bk-surya': bkAmsSuryaImg,
+  'bk-skandha-south': bkSkandhaImg,
+};
+
+// ── Hero Particles ─────────────────────────────────────
+function HeroParticles() {
+  const particles = useMemo(() => Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 2.5 + 0.5,
+    duration: Math.random() * 14 + 8,
+    delay: Math.random() * 8,
+    drift: (Math.random() - 0.5) * 40,
+  })), []);
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 4, pointerEvents: 'none' }}>
+      {particles.map(p => (
+        <motion.div
+          key={p.id}
+          style={{
+            position: 'absolute',
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            borderRadius: '50%',
+            background: p.size > 1.8 ? 'rgba(201,168,76,0.7)' : 'rgba(248,246,240,0.35)',
+          }}
+          animate={{
+            y: [0, -120, 0],
+            x: [0, p.drift, 0],
+            opacity: [0, p.size > 1.5 ? 0.8 : 0.4, 0],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 function useReveal() {
   const ref = useRef(null);
@@ -20,13 +76,7 @@ function useReveal() {
 // ── Premium Project Card ──────────────────────────────
 function ProjectCard({ project, index }) {
   const [hovered, setHovered] = useState(false);
-  const images = [
-    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
-    'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
-    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-  ];
-  const img = project.image || images[index % 4];
+  const img = projectImages[project.id] || project.image;
 
   return (
     <Link
@@ -271,8 +321,6 @@ export default function HomePage() {
   const servicesRef = useReveal();
   const projectsRef = useReveal();
 
-  const allOngoing = [...ongoingApartments, ...ongoingVillas];
-
   const marqueeItems = [
     'Individual Villas', 'Luxury Apartments', 'Custom Homes',
     'Real Estate', 'Premium Finishes', 'Contract Work',
@@ -287,16 +335,17 @@ export default function HomePage() {
         <motion.div style={{ y: heroY, position: 'absolute', inset: '-20%', zIndex: 1 }}>
           <div style={{
             width: '100%', height: '100%',
-            backgroundImage: 'url(/office.jpg)',
+            backgroundImage: `url(${officeImg})`,
             backgroundSize: 'cover', backgroundPosition: 'center 30%',
           }} />
         </motion.div>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 2, background: 'linear-gradient(135deg, rgba(10,8,24,0.92) 0%, rgba(68,49,153,0.4) 60%, rgba(10,8,24,0.7) 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, zIndex: 3, background: 'linear-gradient(to right, rgba(10,8,24,0.95) 35%, rgba(10,8,24,0.2) 100%)' }} />
-        <div style={{ position: 'absolute', top: '-100px', right: '18%', width: '1px', height: '120vh', background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.35), transparent)', transform: 'rotate(12deg)', zIndex: 4 }} />
-        <div style={{ position: 'absolute', top: '-100px', right: '22%', width: '1px', height: '120vh', background: 'linear-gradient(to bottom, transparent, rgba(68,49,153,0.25), transparent)', transform: 'rotate(12deg)', zIndex: 4 }} />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 2, background: 'linear-gradient(135deg, rgba(10,8,24,0.93) 0%, rgba(10,8,24,0.6) 60%, rgba(10,8,24,0.75) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 3, background: 'linear-gradient(to right, rgba(10,8,24,0.97) 35%, rgba(10,8,24,0.15) 100%)' }} />
+        <HeroParticles />
+        <div style={{ position: 'absolute', top: '-100px', right: '18%', width: '1px', height: '120vh', background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.35), transparent)', transform: 'rotate(12deg)', zIndex: 5 }} />
+        <div style={{ position: 'absolute', top: '-100px', right: '22%', width: '1px', height: '120vh', background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.1), transparent)', transform: 'rotate(12deg)', zIndex: 5 }} />
 
-        <motion.div style={{ position: 'relative', zIndex: 5, padding: '0 80px', maxWidth: '900px', opacity: heroOpacity }}
+        <motion.div style={{ position: 'relative', zIndex: 6, padding: '0 80px', maxWidth: '900px', opacity: heroOpacity }}
           className="hero-content"
         >
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }}
@@ -351,7 +400,7 @@ export default function HomePage() {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 1.3 }}
-          style={{ position: 'absolute', right: '80px', bottom: '100px', zIndex: 5, display: 'flex', flexDirection: 'column', gap: '32px' }}
+          style={{ position: 'absolute', right: '80px', bottom: '100px', zIndex: 6, display: 'flex', flexDirection: 'column', gap: '32px' }}
           className="hero-stats"
         >
           {company.stats.map((s, i) => (
@@ -364,7 +413,7 @@ export default function HomePage() {
 
         {/* Scroll hint */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
-          style={{ position: 'absolute', bottom: '36px', left: '50%', transform: 'translateX(-50%)', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
+          style={{ position: 'absolute', bottom: '36px', left: '50%', transform: 'translateX(-50%)', zIndex: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
         >
           <span style={{ fontSize: '9px', letterSpacing: '4px', color: 'rgba(248,246,240,0.35)', textTransform: 'uppercase' }}>Scroll</span>
           <div style={{ width: '1px', height: '60px', background: 'linear-gradient(to bottom, #C9A84C, transparent)', animation: 'pulse 2s ease infinite' }} />
@@ -387,7 +436,7 @@ export default function HomePage() {
       <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#120f24', position: 'relative', overflow: 'hidden' }} className="about-section">
         <div style={{ position: 'absolute', right: '-60px', top: '50%', transform: 'translateY(-50%)', fontFamily: 'Cormorant Garamond, serif', fontSize: '280px', fontWeight: 700, color: 'rgba(68,49,153,0.06)', lineHeight: 1, pointerEvents: 'none', zIndex: 0, userSelect: 'none' }}>BK</div>
         <div style={{ position: 'relative', overflow: 'hidden', minHeight: '600px', zIndex: 1 }}>
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(/office.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${officeImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(68,49,153,0.4), transparent)' }} />
           <div style={{ position: 'absolute', bottom: '-24px', right: '-24px', background: '#C9A84C', color: '#0a0818', padding: '24px 28px', fontFamily: 'Cormorant Garamond, serif' }}>
             <div style={{ fontSize: '48px', fontWeight: 600, lineHeight: 1 }}>14+</div>
@@ -435,49 +484,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ ONGOING PROJECTS ══ */}
+      {/* ══ SIGNATURE PROJECTS ══ */}
       <section style={{ background: '#0a0818', padding: '120px 80px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '60px', flexWrap: 'wrap', gap: '20px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
               <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
-              <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>Current Work</span>
+              <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>Signature Work</span>
             </div>
             <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(36px, 4vw, 60px)', fontWeight: 300, lineHeight: 1.15 }}>
-              Ongoing <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Projects</em>
+              Featured <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Projects</em>
             </h2>
           </div>
           <Link to="/projects" className="btn-outline" style={{ padding: '10px 24px', fontSize: '10px' }}>
-            <span>View All</span>
+            <span>View All Projects</span>
             <ArrowRight size={12} />
           </Link>
         </div>
 
-        {/* Project names list */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '60px' }} className="project-names-grid">
-          {[
-            { label: 'Apartments', projects: ongoingApartments },
-            { label: 'Individual Villas', projects: ongoingVillas },
-          ].map((group, gi) => (
-            <div key={gi} style={{ border: '1px solid rgba(201,168,76,0.12)', background: 'rgba(18,15,36,0.6)', padding: '28px 32px' }}>
-              <div style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '20px' }}>{group.label}</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {group.projects.map((p, i) => (
-                  <Link key={p.id} to={`/projects/${p.id}`} style={{ display: 'flex', alignItems: 'center', gap: '14px', textDecoration: 'none', padding: '10px 0', borderBottom: '1px solid rgba(248,246,240,0.05)' }}>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#C9A84C', flexShrink: 0, animation: 'pulse 2s ease infinite' }} />
-                    <span style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '20px', color: '#F8F6F0', flex: 1 }}>{p.name}</span>
-                    <span style={{ fontSize: '10px', letterSpacing: '2px', color: 'rgba(248,246,240,0.35)', textTransform: 'uppercase' }}>{p.location?.split(',')[0]}</span>
-                    <ArrowRight size={12} style={{ color: '#C9A84C' }} />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Featured cards grid */}
-        <div ref={projectsRef} className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} >
-          {allOngoing.slice(0, 3).map((proj, i) => (
+        <div ref={projectsRef} className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+          {[ongoingApartments[0], ongoingApartments[3], ongoingVillas[0]].map((proj, i) => (
             <ProjectCard key={proj.id} project={proj} index={i} />
           ))}
         </div>

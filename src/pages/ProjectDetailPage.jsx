@@ -4,6 +4,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, MapPin, Phone, Layers, Eye, ChevronRight, CircleCheck as CheckCircle, Circle as XCircle } from 'lucide-react';
 import { ongoingApartments, ongoingVillas } from '../data/projects';
 import bkAranImg from '../assets/projects/BKAran_Elevation copy.jpeg';
+import bkChandraImg from '../assets/projects/BK_Chandra.png';
+import bkAmsSuryaImg from '../assets/projects/BK_AMS_&_Surya.png';
+import bkSkandhaImg from '../assets/projects/BK_Skandha.png';
+
+const projectImages = {
+  'bk-chandra': bkChandraImg,
+  'bk-aran': bkAranImg,
+  'bk-ams': bkAmsSuryaImg,
+  'bk-surya': bkAmsSuryaImg,
+  'bk-skandha-south': bkSkandhaImg,
+};
 
 const allProjects = [...ongoingApartments, ...ongoingVillas];
 
@@ -142,7 +153,7 @@ export default function ProjectDetailPage() {
   const [activeTab, setActiveTab] = useState('elevation');
 
   const isVilla = project.type === 'Individual Villa';
-  const projectImg = project.id === 'bk-aran' ? bkAranImg : project.image;
+  const projectImg = projectImages[project.id] || project.image;
 
   const tabs = [
     { key: 'elevation', label: 'Elevation', icon: <Eye size={13} /> },

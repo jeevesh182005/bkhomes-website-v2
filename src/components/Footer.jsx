@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Navigation } from 'lucide-react';
 import { company } from '../data/projects';
 
 const IgIcon = () => (
@@ -129,9 +129,25 @@ export default function Footer() {
               <MapPin size={15} style={{ color: '#C9A84C', marginTop: '2px', flexShrink: 0 }} />
               <div>
                 <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#C9A84C', marginBottom: '4px', textTransform: 'uppercase' }}>Corporate Office</div>
-                <div style={{ fontSize: '13px', color: 'rgba(248,246,240,0.6)', lineHeight: 1.7 }}>
+                <div style={{ fontSize: '13px', color: 'rgba(248,246,240,0.6)', lineHeight: 1.7, marginBottom: '10px' }}>
                   Plot No. 8C, Vivekananda Salai,<br />Rajajipuram, Tiruvallur – 602 001
                 </div>
+                <a
+                  href="https://www.google.com/maps/search/BK+Homes/"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '5px',
+                    fontSize: '10px', letterSpacing: '2px', color: '#C9A84C',
+                    textDecoration: 'none', textTransform: 'uppercase', opacity: 0.7,
+                    transition: 'opacity 0.3s',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                  onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
+                >
+                  <Navigation size={10} />
+                  Get Directions
+                </a>
               </div>
             </div>
           </div>
