@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, ArrowRight, CircleCheck as CheckCircle, Clock, Building2, Home, Hammer, Award } from 'lucide-react';
+import { MapPin, ArrowRight, CircleCheck as CheckCircle, Clock, Building2, Hop as Home, Hammer, Award } from 'lucide-react';
 import { ongoingApartments, ongoingVillas, completedProjects, contractWork } from '../data/projects';
 import bkAranImg from '../assets/projects/BKAran_Elevation copy.jpeg';
-import bkChandraImg from '../assets/projects/BK_Chandra.png';
+import bkChandraElevationImg from '../assets/projects/BK_Chandra_Elevation.png';
 import bkAmsSuryaImg from '../assets/projects/BK_AMS_&_Surya.png';
 import bkSkandhaImg from '../assets/projects/BK_Skandha.png';
 import rajkamalImg from '../assets/projects/Rajkamal_Contract_Work copy.jpeg';
 
 const projectImages = {
-  'bk-chandra': bkChandraImg,
+  'bk-chandra': bkChandraElevationImg,
   'bk-aran': bkAranImg,
   'bk-ams': bkAmsSuryaImg,
   'bk-surya': bkAmsSuryaImg,

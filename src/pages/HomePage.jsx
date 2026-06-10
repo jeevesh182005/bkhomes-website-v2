@@ -4,13 +4,13 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Phone, MapPin, Star, Building2, Hop as Home, Hammer, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { company, ongoingApartments, ongoingVillas, services } from '../data/projects';
 import officeImg from '../assets/Office.jpg';
-import bkChandraImg from '../assets/projects/BK_Chandra.png';
+import bkChandraElevationImg from '../assets/projects/BK_Chandra_Elevation.png';
 import bkAmsSuryaImg from '../assets/projects/BK_AMS_&_Surya.png';
 import bkSkandhaImg from '../assets/projects/BK_Skandha.png';
 import bkAranImg from '../assets/projects/BKAran_Elevation copy.jpeg';
 
 const projectImages = {
-  'bk-chandra': bkChandraImg,
+  'bk-chandra': bkChandraElevationImg,
   'bk-aran': bkAranImg,
   'bk-ams': bkAmsSuryaImg,
   'bk-surya': bkAmsSuryaImg,

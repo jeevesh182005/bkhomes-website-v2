@@ -4,16 +4,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, MapPin, Phone, Layers, Eye, ChevronRight, CircleCheck as CheckCircle, Circle as XCircle } from 'lucide-react';
 import { ongoingApartments, ongoingVillas } from '../data/projects';
 import bkAranImg from '../assets/projects/BKAran_Elevation copy.jpeg';
-import bkChandraImg from '../assets/projects/BK_Chandra.png';
+import bkChandraElevationImg from '../assets/projects/BK_Chandra_Elevation.png';
 import bkAmsSuryaImg from '../assets/projects/BK_AMS_&_Surya.png';
 import bkSkandhaImg from '../assets/projects/BK_Skandha.png';
+import stiltsFloorPlanImg from '../assets/projects/Stilts_Floor_Plan_Chandra.png';
+import typicalFloorPlanImg from '../assets/projects/Typical_Floor_planChandra.png';
 
 const projectImages = {
-  'bk-chandra': bkChandraImg,
+  'bk-chandra': bkChandraElevationImg,
   'bk-aran': bkAranImg,
   'bk-ams': bkAmsSuryaImg,
   'bk-surya': bkAmsSuryaImg,
   'bk-skandha-south': bkSkandhaImg,
+};
+
+const projectFloorPlanImages = {
+  'bk-chandra': [
+    { key: 'stilts', label: 'Stilts Floor Plan', img: stiltsFloorPlanImg },
+    { key: 'typical', label: 'Typical Floor Plan', img: typicalFloorPlanImg },
+  ],
 };
 
 const allProjects = [...ongoingApartments, ...ongoingVillas];
@@ -146,6 +155,68 @@ function FloorPlanDetails({ project }) {
   );
 }
 
+// ── Floor Plan Images ─────────────────────────────────
+function FloorPlanImages({ plans, projectName }) {
+  const [activePlan, setActivePlan] = useState(plans[0]?.key);
+
+  const current = plans.find(p => p.key === activePlan);
+
+  return (
+    <div style={{ background: '#0a0818', border: '1px solid rgba(201,168,76,0.15)', padding: '32px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <Layers size={15} style={{ color: '#C9A84C' }} />
+        <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase' }}>
+          Floor Plans — {projectName}
+        </span>
+      </div>
+
+      {/* Plan selector tabs */}
+      <div style={{ display: 'flex', gap: '2px', marginBottom: '20px' }}>
+        {plans.map(plan => (
+          <button
+            key={plan.key}
+            onClick={() => setActivePlan(plan.key)}
+            style={{
+              padding: '8px 20px', cursor: 'pointer', border: 'none',
+              background: activePlan === plan.key ? 'rgba(201,168,76,0.12)' : 'transparent',
+              borderBottom: activePlan === plan.key ? '2px solid #C9A84C' : '2px solid transparent',
+              color: activePlan === plan.key ? '#C9A84C' : 'rgba(248,246,240,0.45)',
+              fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase',
+              transition: 'all 0.3s', fontFamily: 'Outfit, sans-serif',
+            }}
+          >
+            {plan.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Plan image */}
+      <AnimatePresence mode="wait">
+        {current && (
+          <motion.div
+            key={current.key}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div style={{ position: 'relative', overflow: 'hidden', border: '1px solid rgba(201,168,76,0.1)', background: '#fff' }}>
+              <img
+                src={current.img}
+                alt={`${current.label} — ${projectName}`}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </div>
+            <p style={{ marginTop: '12px', fontSize: '12px', color: 'rgba(248,246,240,0.3)', letterSpacing: '1px', textAlign: 'center' }}>
+              {current.label} — {projectName}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 // ── Main Page ────────────────────────────────────────
 export default function ProjectDetailPage() {
   const { id } = useParams();
@@ -254,7 +325,11 @@ export default function ProjectDetailPage() {
 
               {activeTab === 'floorplan' && project.hasFloorPlan && (
                 <motion.div key="floorplan" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
-                  <FloorPlanDetails project={project} />
+                  {projectFloorPlanImages[project.id] ? (
+                    <FloorPlanImages plans={projectFloorPlanImages[project.id]} projectName={project.name} />
+                  ) : (
+                    <FloorPlanDetails project={project} />
+                  )}
                 </motion.div>
               )}
 
