@@ -234,6 +234,7 @@ function TestimonialCarousel() {
             initial="enter"
             animate="center"
             exit="exit"
+            className="testimonial-card"
             style={{ padding: '52px 56px 48px' }}
           >
             {/* Quote mark */}
@@ -433,7 +434,7 @@ export default function HomePage() {
       </div>
 
       {/* ══ ABOUT ══ */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#120f24', position: 'relative', overflow: 'hidden' }} className="about-section">
+      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#120f24', position: 'relative', overflow: 'hidden' }} className="about-section about-grid">
         <div style={{ position: 'absolute', right: '-60px', top: '50%', transform: 'translateY(-50%)', fontFamily: 'Cormorant Garamond, serif', fontSize: '280px', fontWeight: 700, color: 'rgba(68,49,153,0.06)', lineHeight: 1, pointerEvents: 'none', zIndex: 0, userSelect: 'none' }}>BK</div>
         <div style={{ position: 'relative', overflow: 'hidden', minHeight: '600px', zIndex: 1 }}>
           <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${officeImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
@@ -443,7 +444,7 @@ export default function HomePage() {
             <div style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', marginTop: '4px' }}>Years of Excellence</div>
           </div>
         </div>
-        <div ref={aboutRef} className="reveal" style={{ padding: '100px 80px', position: 'relative', zIndex: 1 }}>
+        <div ref={aboutRef} className="reveal about-text" style={{ padding: '100px 80px', position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
             <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
             <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>Our Story</span>
@@ -502,7 +503,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div ref={projectsRef} className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+        <div ref={projectsRef} className="reveal sig-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
           {[ongoingApartments[0], ongoingApartments[3], ongoingVillas[0]].map((proj, i) => (
             <ProjectCard key={proj.id} project={proj} index={i} />
           ))}
@@ -519,7 +520,7 @@ export default function HomePage() {
         <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(36px, 4vw, 60px)', fontWeight: 300, lineHeight: 1.15, marginBottom: '60px' }}>
           Built for Every <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Vision</em>
         </h2>
-        <div ref={servicesRef} className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }} >
+        <div ref={servicesRef} className="reveal services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>
           {services.map((s, i) => <ServiceCard key={s.id} service={s} index={i} />)}
         </div>
       </section>
@@ -548,7 +549,7 @@ export default function HomePage() {
       </section>
 
       {/* ══ CTA ══ */}
-      <section style={{ background: '#120f24', padding: '80px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(201,168,76,0.1)', gap: '40px', flexWrap: 'wrap' }}>
+      <section style={{ background: '#120f24', padding: '80px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(201,168,76,0.1)', gap: '40px', flexWrap: 'wrap' }} className="cta-section">
         <div>
           <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(28px, 3vw, 48px)', fontWeight: 300, marginBottom: '12px' }}>
             Ready to Build Your <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Dream Home?</em>

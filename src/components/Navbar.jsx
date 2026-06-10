@@ -40,6 +40,7 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="main-nav"
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
           padding: scrolled ? '10px 48px' : '20px 48px',

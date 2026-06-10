@@ -9,6 +9,9 @@ import bkAmsSuryaImg from '../assets/projects/BK_AMS_&_Surya.png';
 import bkSkandhaImg from '../assets/projects/BK_Skandha.png';
 import stiltsFloorPlanImg from '../assets/projects/Stilts_Floor_Plan_Chandra.png';
 import typicalFloorPlanImg from '../assets/projects/Typical_Floor_planChandra.png';
+import skandhaFloorPlanImg from '../assets/projects/Skandha_FloorPlan.png';
+import amsGroundFloorPlanImg from '../assets/projects/AMS_Ground_FloorPlan.png';
+import amsTypicalFloorPlanImg from '../assets/projects/AMS_TypicalPlan.png';
 
 const projectImages = {
   'bk-chandra': bkChandraElevationImg,
@@ -22,6 +25,13 @@ const projectFloorPlanImages = {
   'bk-chandra': [
     { key: 'stilts', label: 'Stilts Floor Plan', img: stiltsFloorPlanImg },
     { key: 'typical', label: 'Typical Floor Plan', img: typicalFloorPlanImg },
+  ],
+  'bk-skandha-south': [
+    { key: 'ground', label: 'Floor Plan', img: skandhaFloorPlanImg },
+  ],
+  'bk-ams': [
+    { key: 'ground', label: 'Ground Floor (Parking)', img: amsGroundFloorPlanImg },
+    { key: 'typical', label: 'Typical Floor (1st–3rd)', img: amsTypicalFloorPlanImg },
   ],
 };
 

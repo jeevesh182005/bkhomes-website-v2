@@ -108,7 +108,7 @@ export default function AboutPage() {
       <section style={{
         display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '2px', background: '#05040e',
-      }}>
+      }} className="mvq-grid">
         {[
           { icon: <Award size={28} />, label: 'Our Mission', text: company.mission },
           { icon: <Building2 size={28} />, label: 'Our Vision', text: company.vision },
@@ -145,7 +145,7 @@ export default function AboutPage() {
       <section style={{
         display: 'grid', gridTemplateColumns: '1fr 1fr',
         background: '#120f24',
-      }}>
+      }} className="md-section">
         {/* Photo side */}
         <div style={{
           position: 'relative', overflow: 'hidden', minHeight: '550px',
@@ -177,7 +177,7 @@ export default function AboutPage() {
         </div>
 
         {/* Content */}
-        <div style={{ padding: '80px 70px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <div style={{ padding: '80px 70px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }} className="md-content">
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
             <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
             <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>
@@ -236,7 +236,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Timeline ── */}
-      <section style={{ padding: '120px 80px', background: '#0a0818', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ padding: '120px 80px', background: '#0a0818', position: 'relative', overflow: 'hidden' }} className="timeline-section">
         {/* Decorative background */}
         <div style={{
           position: 'absolute', inset: 0,
@@ -259,7 +259,7 @@ export default function AboutPage() {
           14 Years of <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Excellence</em>
         </h2>
 
-        <div ref={timelineRef} className="reveal" style={{ position: 'relative', maxWidth: '1000px', margin: '0 auto' }}>
+        <div ref={timelineRef} className="reveal timeline-container" style={{ position: 'relative', maxWidth: '1000px', margin: '0 auto' }}>
           {/* Center vertical line */}
           <div style={{
             position: 'absolute', left: '50%', top: 0, bottom: 0,
@@ -271,7 +271,7 @@ export default function AboutPage() {
           {timeline.map((item, i) => {
             const isLeft = i % 2 === 0;
             return (
-              <div key={i} style={{
+              <div key={i} className="timeline-item" style={{
                 display: 'flex',
                 justifyContent: isLeft ? 'flex-start' : 'flex-end',
                 marginBottom: '48px',
@@ -339,7 +339,7 @@ export default function AboutPage() {
         padding: '100px 80px',
         background: '#120f24',
         borderTop: '1px solid rgba(201,168,76,0.08)',
-      }}>
+      }} className="offices-section">
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
           <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
           <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>

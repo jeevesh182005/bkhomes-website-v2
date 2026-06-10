@@ -56,7 +56,7 @@ export default function ContactPage() {
 
       {/* Main content */}
       <section style={{ padding: '80px 80px 120px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', gap: '60px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', gap: '60px', maxWidth: '1400px', margin: '0 auto' }} className="contact-grid">
 
           {/* Left — Form */}
           <div>
@@ -97,7 +97,7 @@ export default function ContactPage() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }} className="form-fields-grid">
                   <FormField label="Full Name *" name="name" value={form.name} onChange={handleChange} placeholder="Your name" required />
                   <FormField label="Phone Number *" name="phone" value={form.phone} onChange={handleChange} placeholder="88708 XXXXX" type="tel" required />
                 </div>

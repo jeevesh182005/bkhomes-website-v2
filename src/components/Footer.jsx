@@ -24,7 +24,7 @@ export default function Footer() {
       background: '#05040e',
       borderTop: '1px solid rgba(201,168,76,0.15)',
       padding: '80px 60px 40px',
-    }}>
+    }} className="footer-wrap">
       <div style={{
         display: 'grid',
         gridTemplateColumns: '1.6fr 1fr 1fr 1.2fr',

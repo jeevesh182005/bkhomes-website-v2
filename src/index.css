@@ -139,75 +139,190 @@ section { position: relative; }
 
 /* ── MOBILE RESPONSIVE ─────────────────────────────────────────────── */
 
-/* Tablet — 1024px */
+/* ── Tablet / Large Mobile — 1024px ── */
 @media (max-width: 1024px) {
   /* Navbar */
   .nav-desktop { display: none !important; }
   .nav-mobile-toggle { display: block !important; }
+  .main-nav { padding-left: 24px !important; padding-right: 24px !important; }
 
-  /* Footer grid */
+  /* All sections — reduce horizontal padding */
+  section { padding-left: 32px !important; padding-right: 32px !important; }
+
+  /* Footer */
+  .footer-wrap { padding: 60px 32px 32px !important; }
   .footer-grid {
     grid-template-columns: 1fr 1fr !important;
     gap: 40px !important;
-    padding: 0 24px !important;
   }
 
   /* Hero content */
   .hero-content { padding: 60px 32px !important; }
-  .hero-stats { gap: 20px !important; flex-wrap: wrap !important; }
+  .hero-stats { gap: 20px !important; flex-wrap: wrap !important; right: 32px !important; }
 
-  /* About section */
-  .about-section { padding: 60px 32px !important; }
-  .stats-grid { grid-templateColumns: repeat(2, 1fr) !important; }
+  /* About section — stack to single column */
+  .about-grid { grid-template-columns: 1fr !important; }
+  .about-text { padding: 60px 40px !important; }
 
-  /* Project names grid */
-  .project-names-grid { gridTemplateColumns: 1fr 1fr !important; }
-  .testimonials-grid { padding: 60px 32px !important; }
+  /* Stats bar — 2 columns */
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
 
-  /* Detail page */
-  .detail-padding { padding: 60px 32px !important; }
-  .detail-grid { gridTemplateColumns: 1fr !important; }
+  /* Signature projects — 2 columns */
+  .sig-grid { grid-template-columns: repeat(2, 1fr) !important; }
 
-  /* General sections */
-  section { padding-left: 24px !important; padding-right: 24px !important; }
+  /* Services — 2 columns */
+  .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Testimonials — stack */
+  .testimonials-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+  /* CTA section */
+  .cta-section { padding: 60px 32px !important; }
+
+  /* Project detail */
+  .detail-padding { padding: 0 32px 80px !important; }
+  .detail-grid { grid-template-columns: 1fr !important; }
+
+  /* Projects page */
+  .projects-hero { padding: 40px 32px 60px !important; }
+  .filter-bar { padding: 0 32px !important; }
+  .projects-content { padding: 40px 32px 80px !important; }
+  .projects-stats { gap: 24px !important; }
+
+  /* About page sections */
+  .mvq-grid { grid-template-columns: 1fr !important; }
+  .md-section { grid-template-columns: 1fr !important; }
+  .md-content { padding: 48px 40px !important; }
+  .timeline-section { padding: 80px 32px !important; }
+  .offices-section { padding: 80px 32px !important; }
+
+  /* Contact page */
+  .contact-grid { grid-template-columns: 1fr !important; }
+  .form-fields-grid { grid-template-columns: 1fr !important; }
 }
 
-/* Mobile — 768px */
+/* ── Mobile — 768px ── */
 @media (max-width: 768px) {
   body { cursor: auto; }
   .cursor-dot, .cursor-ring { display: none !important; }
+
+  /* All sections — tighter padding */
+  section { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Navbar */
+  .main-nav { padding-left: 16px !important; padding-right: 16px !important; }
 
   /* Footer */
   .footer-grid {
     grid-template-columns: 1fr !important;
     gap: 32px !important;
+    padding: 0 20px !important;
   }
 
-  /* Hero */
-  .hero-content { padding: 40px 20px !important; }
-  .hero-stats { gap: 12px !important; }
+  /* Hero — stack stats under content, reduce padding */
+  .hero-content { padding: 48px 20px !important; }
+  .hero-stats {
+    display: none !important;
+  }
 
-  /* Stats grid */
-  .stats-grid { grid-templateColumns: 1fr 1fr !important; gap: 12px !important; }
+  /* About section */
+  .about-text { padding: 48px 24px !important; }
 
-  /* Project names */
-  .project-names-grid { gridTemplateColumns: 1fr !important; }
-  .testimonials-grid { padding: 40px 20px !important; }
+  /* Stats bar */
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
 
-  /* Detail page */
-  .detail-padding { padding: 40px 20px !important; }
+  /* Signature projects — 1 column */
+  .sig-grid { grid-template-columns: 1fr !important; }
 
-  /* Nav padding */
-  nav { padding-left: 20px !important; padding-right: 20px !important; }
+  /* Services — 1 column */
+  .services-grid { grid-template-columns: 1fr !important; }
 
-  /* Section general */
-  section { padding-left: 16px !important; padding-right: 16px !important; }
+  /* Testimonials */
+  .testimonials-grid { grid-template-columns: 1fr !important; gap: 32px !important; padding: 0 !important; }
+
+  /* CTA section */
+  .cta-section {
+    padding: 48px 20px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  /* Project detail */
+  .detail-padding { padding: 0 20px 60px !important; }
+
+  /* Projects page */
+  .projects-hero { padding: 32px 20px 48px !important; }
+  .filter-bar { padding: 0 16px !important; }
+  .projects-content { padding: 32px 20px 60px !important; }
+  .projects-stats { gap: 16px !important; }
+
+  /* About page */
+  .md-content { padding: 40px 24px !important; }
+  .timeline-section { padding: 60px 20px !important; }
+  .offices-section { padding: 60px 20px !important; }
+
+  /* Timeline — single column left aligned */
+  .timeline-container .timeline-item {
+    padding-left: 36px !important;
+    padding-right: 0 !important;
+    justify-content: flex-start !important;
+  }
+  .timeline-container .timeline-item > div[style] {
+    max-width: 100% !important;
+  }
+  /* Hide center line on mobile, use left-aligned line */
+  .timeline-container > div:first-child {
+    left: 10px !important;
+    transform: none !important;
+  }
+  .timeline-container .timeline-item > div:first-child {
+    left: 0 !important;
+    transform: translateX(-50%) !important;
+    top: 4px !important;
+  }
+
+  /* Contact page */
+  .contact-grid { grid-template-columns: 1fr !important; }
+  .form-fields-grid { grid-template-columns: 1fr !important; }
+
+  /* Footer */
+  .footer-wrap { padding: 48px 20px 32px !important; }
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    margin-bottom: 40px !important;
+  }
+
+  /* Testimonial card padding */
+  .testimonial-card { padding: 32px 24px 28px !important; }
 }
 
-/* Small mobile — 480px */
+/* ── Small Mobile — 480px ── */
 @media (max-width: 480px) {
-  .hero-stats { flex-direction: column !important; align-items: flex-start !important; }
-  .stats-grid { gridTemplateColumns: 1fr !important; }
+  /* Further reduce padding */
+  section { padding-left: 16px !important; padding-right: 16px !important; }
+  .hero-content { padding: 40px 16px !important; }
+  .projects-hero { padding: 24px 16px 40px !important; }
+  .filter-bar { padding: 0 8px !important; }
+  .projects-content { padding: 24px 16px 48px !important; }
+  .projects-stats { flex-direction: column !important; gap: 12px !important; }
+
+  /* Stats bar — 1 column on very small */
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+
+  /* CTA buttons */
+  .cta-section > div:last-child { flex-direction: column !important; width: 100% !important; }
+  .cta-section > div:last-child .btn-gold,
+  .cta-section > div:last-child .btn-outline { width: 100% !important; justify-content: center !important; }
+
+  /* Detail padding */
+  .detail-padding { padding: 0 16px 48px !important; }
+
+  /* Timeline on small screens */
+  .timeline-section { padding: 48px 16px !important; }
+  .offices-section { padding: 48px 16px !important; }
+  .contact-grid { padding: 0 !important; }
+  .md-content { padding: 32px 20px !important; }
 }
 
 /* ── PAGE TRANSITION ───────────────────────────────────────────────── */

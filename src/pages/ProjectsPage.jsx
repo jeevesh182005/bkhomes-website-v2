@@ -196,6 +196,7 @@ function CategoryOverviewCard({ icon: Icon, label, count, description, onClick, 
         cursor: 'pointer',
         transition: 'all 0.35s',
         position: 'relative', overflow: 'hidden',
+        height: '100%', display: 'flex', flexDirection: 'column',
       }}
     >
       <div style={{
@@ -208,7 +209,7 @@ function CategoryOverviewCard({ icon: Icon, label, count, description, onClick, 
       <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '48px', fontWeight: 300, color: '#C9A84C', lineHeight: 1, marginBottom: '12px' }}>{count}</div>
       <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', fontWeight: 400, color: '#F8F6F0', marginBottom: '10px' }}>{label}</h3>
       <p style={{ fontSize: '13px', color: 'rgba(248,246,240,0.45)', lineHeight: 1.7, marginBottom: '20px' }}>{description}</p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: '#C9A84C', letterSpacing: '2px', textTransform: 'uppercase', opacity: hov ? 1 : 0.5, transition: 'opacity 0.3s' }}>
+      <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: '#C9A84C', letterSpacing: '2px', textTransform: 'uppercase', opacity: hov ? 1 : 0.5, transition: 'opacity 0.3s' }}>
         <span>View</span><ArrowRight size={11} />
       </div>
     </motion.div>
@@ -262,7 +263,7 @@ export default function ProjectsPage() {
         background: 'linear-gradient(135deg, #120f24 0%, #0a0818 100%)',
         borderBottom: '1px solid rgba(201,168,76,0.1)',
         position: 'relative', overflow: 'hidden',
-      }}>
+      }} className="projects-hero">
         <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '40%', background: 'radial-gradient(ellipse at right center, rgba(201,168,76,0.06), transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
           <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
@@ -276,7 +277,7 @@ export default function ProjectsPage() {
         </p>
 
         {/* Stats */}
-        <div style={{ display: 'flex', gap: '48px', marginTop: '48px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '48px', marginTop: '48px', flexWrap: 'wrap' }} className="projects-stats">
           {[
             { n: String(ongoingApartments.length), l: 'Ongoing Apartments' },
             { n: String(ongoingVillas.length), l: 'Ongoing Villas' },
@@ -299,7 +300,7 @@ export default function ProjectsPage() {
         backdropFilter: 'blur(16px)',
         padding: '0 80px',
         display: 'flex', gap: 0, overflowX: 'auto',
-      }}>
+      }} className="filter-bar">
         {FILTERS.map(f => {
           const Icon = f.icon;
           const active = activeFilter === f.id;
@@ -330,7 +331,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* ── Content Area ── */}
-      <div style={{ padding: '60px 80px 100px', minHeight: '60vh' }}>
+      <div style={{ padding: '60px 80px 100px', minHeight: '60vh' }} className="projects-content">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeFilter}
@@ -349,9 +350,9 @@ export default function ProjectsPage() {
                     Browse by <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Category</em>
                   </h2>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px', marginBottom: '60px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px', marginBottom: '60px', alignItems: 'stretch' }}>
                   {overviewCards.map((c, i) => (
-                    <motion.div key={c.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                    <motion.div key={c.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} style={{ height: '100%' }}>
                       <CategoryOverviewCard
                         icon={c.icon}
                         label={c.label}
