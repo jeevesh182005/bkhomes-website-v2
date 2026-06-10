@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import officeImg from '../assets/Office.jpg';
-import { ArrowRight, Award, Users, Building2, MapPin, Phone, Mail } from 'lucide-react';
+import { ArrowRight, Award, Users, Building2, MapPin, Phone, Mail, Navigation } from 'lucide-react';
 import { company, completedProjects } from '../data/projects';
 
 function useReveal() {
@@ -270,6 +270,7 @@ export default function AboutPage() {
 
           {timeline.map((item, i) => {
             const isLeft = i % 2 === 0;
+            const isCurrent = item.year === '2026';
             return (
               <div key={i} className="timeline-item" style={{
                 display: 'flex',
@@ -282,12 +283,17 @@ export default function AboutPage() {
                 {/* Center dot */}
                 <div style={{
                   position: 'absolute', left: '50%', transform: 'translateX(-50%)',
-                  width: '16px', height: '16px', borderRadius: '50%',
-                  background: '#0a0818',
-                  border: '2px solid #C9A84C',
+                  width: isCurrent ? '22px' : '16px',
+                  height: isCurrent ? '22px' : '16px',
+                  borderRadius: '50%',
+                  background: isCurrent ? '#C9A84C' : '#0a0818',
+                  border: `2px solid #C9A84C`,
                   zIndex: 2,
-                  boxShadow: '0 0 20px rgba(201,168,76,0.3)',
+                  boxShadow: isCurrent
+                    ? '0 0 0 4px rgba(201,168,76,0.2), 0 0 30px rgba(201,168,76,0.6)'
+                    : '0 0 20px rgba(201,168,76,0.3)',
                   top: '8px',
+                  animation: isCurrent ? 'dotPulse 2s ease-in-out infinite' : undefined,
                 }} />
 
                 {/* Card */}
@@ -298,31 +304,50 @@ export default function AboutPage() {
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                   style={{
                     padding: '28px 32px',
-                    border: '1px solid rgba(201,168,76,0.12)',
-                    background: 'rgba(10,8,24,0.6)',
+                    border: `1px solid ${isCurrent ? 'rgba(201,168,76,0.4)' : 'rgba(201,168,76,0.12)'}`,
+                    background: isCurrent ? 'rgba(201,168,76,0.05)' : 'rgba(10,8,24,0.6)',
                     position: 'relative',
                     maxWidth: '420px',
                     width: '100%',
+                    animation: isCurrent ? 'cardGlow 2.5s ease-in-out infinite' : undefined,
+                    overflow: 'hidden',
                   }}
                 >
+                  {isCurrent && (
+                    <div style={{
+                      position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+                      background: 'linear-gradient(90deg, transparent, #C9A84C, transparent)',
+                    }} />
+                  )}
                   {/* Year badge */}
                   <div style={{
-                    display: 'inline-block',
+                    display: 'inline-flex', alignItems: 'center', gap: '8px',
                     padding: '4px 16px',
-                    background: 'rgba(201,168,76,0.1)',
-                    border: '1px solid rgba(201,168,76,0.3)',
+                    background: isCurrent ? 'rgba(201,168,76,0.18)' : 'rgba(201,168,76,0.1)',
+                    border: `1px solid ${isCurrent ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.3)'}`,
                     fontSize: '12px', letterSpacing: '3px',
                     color: '#C9A84C',
                     fontFamily: 'Cormorant Garamond, serif',
                     fontWeight: 600,
                     marginBottom: '16px',
                   }}>
+                    {isCurrent && (
+                      <span style={{
+                        width: '6px', height: '6px', borderRadius: '50%',
+                        background: '#C9A84C',
+                        animation: 'pulse 1.5s ease-in-out infinite',
+                        flexShrink: 0,
+                      }} />
+                    )}
                     {item.year}
+                    {isCurrent && (
+                      <span style={{ fontSize: '9px', letterSpacing: '2px', color: '#C9A84C', opacity: 0.8 }}>NOW</span>
+                    )}
                   </div>
                   <h4 style={{
                     fontFamily: 'Cormorant Garamond, serif',
                     fontSize: '20px', fontWeight: 400,
-                    color: '#F8F6F0', marginBottom: '8px',
+                    color: isCurrent ? '#F8F6F0' : '#F8F6F0', marginBottom: '8px',
                   }}>{item.event}</h4>
                   <p style={{ fontSize: '13px', color: 'rgba(248,246,240,0.5)', lineHeight: 1.7 }}>
                     {item.detail}
@@ -354,13 +379,14 @@ export default function AboutPage() {
           Our <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Office</em>
         </h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '24px', maxWidth: '600px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           {Object.values(company.offices).map((office, i) => (
             <div key={i} style={{
               padding: '48px 44px',
               border: '1px solid rgba(201,168,76,0.12)',
               background: 'rgba(10,8,24,0.6)',
               position: 'relative', overflow: 'hidden',
+              maxWidth: '560px', width: '100%',
             }}>
               <div style={{
                 position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
@@ -381,7 +407,7 @@ export default function AboutPage() {
                   {office.address}
                 </p>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
                 <a href="tel:8870800708" style={{
                   display: 'flex', gap: '10px', alignItems: 'center',
                   fontSize: '14px', color: 'rgba(248,246,240,0.7)', textDecoration: 'none',
@@ -397,10 +423,45 @@ export default function AboutPage() {
                   bkhomes2011@gmail.com
                 </a>
               </div>
+              <a
+                href="https://www.google.com/maps/search/BK+Homes+Tiruvallur/"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  padding: '12px 24px',
+                  border: '1px solid rgba(201,168,76,0.4)',
+                  color: '#C9A84C',
+                  fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s',
+                  background: 'transparent',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.1)'; e.currentTarget.style.borderColor = '#C9A84C'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'; }}
+              >
+                <Navigation size={13} />
+                Get Directions
+              </a>
             </div>
           ))}
         </div>
       </section>
+
+      <style>{`
+        @keyframes dotPulse {
+          0%, 100% { box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 30px rgba(201,168,76,0.6); }
+          50% { box-shadow: 0 0 0 8px rgba(201,168,76,0.1), 0 0 50px rgba(201,168,76,0.9); }
+        }
+        @keyframes cardGlow {
+          0%, 100% { box-shadow: none; border-color: rgba(201,168,76,0.4); }
+          50% { box-shadow: 0 0 30px rgba(201,168,76,0.15), inset 0 0 60px rgba(201,168,76,0.04); border-color: rgba(201,168,76,0.7); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.3); }
+        }
+      `}</style>
 
       {/* ── CTA ── */}
       <section style={{

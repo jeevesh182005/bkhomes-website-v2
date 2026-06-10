@@ -12,6 +12,9 @@ import typicalFloorPlanImg from '../assets/projects/Typical_Floor_planChandra.pn
 import skandhaFloorPlanImg from '../assets/projects/Skandha_FloorPlan.png';
 import amsGroundFloorPlanImg from '../assets/projects/AMS_Ground_FloorPlan.png';
 import amsTypicalFloorPlanImg from '../assets/projects/AMS_TypicalPlan.png';
+import suryaGroundFloorPlanImg from '../assets/projects/BK_Surya_Ground_FloorPlan.png';
+import suryaFirstFloorPlanImg from '../assets/projects/BK_Surya_FirstFloorPlan.png';
+import suryaTypicalFloorPlanImg from '../assets/projects/BK_Surya_2nd&3rd_FloorPlan.png';
 
 const projectImages = {
   'bk-chandra': bkChandraElevationImg,
@@ -32,6 +35,11 @@ const projectFloorPlanImages = {
   'bk-ams': [
     { key: 'ground', label: 'Ground Floor (Parking)', img: amsGroundFloorPlanImg },
     { key: 'typical', label: 'Typical Floor (1st–3rd)', img: amsTypicalFloorPlanImg },
+  ],
+  'bk-surya': [
+    { key: 'ground', label: 'Ground Floor (Parking)', img: suryaGroundFloorPlanImg },
+    { key: 'first', label: 'First Floor (4BHK)', img: suryaFirstFloorPlanImg },
+    { key: 'typical', label: 'Typical Floor (2nd & 3rd)', img: suryaTypicalFloorPlanImg },
   ],
 };
 

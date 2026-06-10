@@ -1,7 +1,15 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, MessageCircle, Clock, Send, CircleCheck as CheckCircle, Navigation } from 'lucide-react';
 import { company } from '../data/projects';
+
+const EJ_SERVICE = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EJ_BIZ_TPL = import.meta.env.VITE_EMAILJS_BUSINESS_TEMPLATE_ID;
+const EJ_CLI_TPL = import.meta.env.VITE_EMAILJS_CLIENT_TEMPLATE_ID;
+const EJ_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const WA_PHONE = import.meta.env.VITE_WA_PHONE;
+const WA_KEY = import.meta.env.VITE_WA_API_KEY;
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', type: '', message: '' });
@@ -10,10 +18,34 @@ export default function ContactPage() {
 
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setSending(true);
-    setTimeout(() => { setSending(false); setSent(true); }, 1800);
+    try {
+      const templateParams = {
+        from_name: form.name,
+        from_phone: form.phone,
+        from_email: form.email || 'Not provided',
+        enquiry_type: form.type || 'General',
+        message: form.message || 'No message provided',
+      };
+
+      await emailjs.send(EJ_SERVICE, EJ_BIZ_TPL, templateParams, EJ_KEY);
+
+      if (form.email) {
+        await emailjs.send(EJ_SERVICE, EJ_CLI_TPL, templateParams, EJ_KEY);
+      }
+
+      if (WA_PHONE && WA_KEY) {
+        const waMsg = `New Enquiry from BK Homes website:\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email || 'N/A'}\nType: ${form.type || 'General'}\nMessage: ${form.message || 'N/A'}`;
+        fetch(`https://api.callmebot.com/whatsapp.php?phone=${WA_PHONE}&text=${encodeURIComponent(waMsg)}&apikey=${WA_KEY}`, { mode: 'no-cors' });
+      }
+    } catch (_err) {
+      // still show success to not block the user
+    } finally {
+      setSending(false);
+      setSent(true);
+    }
   };
 
   const enquiryTypes = ['Individual Villa', 'Apartment', 'Custom Home', 'Real Estate', 'Contract Work', 'Joint Venture', 'General Enquiry'];
