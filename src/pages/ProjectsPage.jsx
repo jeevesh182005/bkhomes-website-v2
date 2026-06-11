@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, ArrowRight, CircleCheck as CheckCircle, Clock, Building2, Hop as Home, Hammer, Award } from 'lucide-react';
-import { ongoingApartments, ongoingVillas, completedProjects, contractWork } from '../data/projects';
+import { MapPin, ArrowRight, CircleCheck as CheckCircle, Clock, Building2, Hop as Home, Hammer, Award, Store } from 'lucide-react';
+import { ongoingApartments, ongoingVillas, completedProjects, contractWork, commercialWork } from '../data/projects';
 import bkAranImg from '../assets/projects/BKAran_Elevation copy.jpeg';
 import bkChandraElevationImg from '../assets/projects/BK_Chandra_Elevation.png';
 import bkAmsSuryaImg from '../assets/projects/BK_AMS_&_Surya.png';
@@ -13,6 +13,11 @@ import mrHitech5bElevImg from '../assets/projects/M.R._HI-TECH_CITY_Plot-5B_Elev
 import udhayakumarElevImg from '../assets/projects/Udhayakumar_Contract_Elevation.jpeg';
 import sivagurunathanElevImg from '../assets/projects/Sivagurunathan_Contract_Elevation.jpeg';
 import sureshElevImg from '../assets/projects/Suresh_Contract_Elevation.jpeg';
+import jayagandhiElevImg from '../assets/projects/JayaGandhi_Contract_Elevation.jpeg';
+import sathishElevImg from '../assets/projects/Sathish_Contract_Elevation.jpeg';
+import bhaskarElevImg from '../assets/projects/Bhaskar_Contract_Elevation.jpeg';
+import bkRatanElevImg from '../assets/projects/BK_Ratan_Commercial_Elevation.jpeg';
+import bkSurajElevImg from '../assets/projects/BK_Suraj_Commercial_Elevation.jpeg';
 
 const projectImages = {
   'bk-chandra': bkChandraElevationImg,
@@ -25,10 +30,18 @@ const projectImages = {
 };
 
 const contractImages = {
-  'Rajkamal': rajkamalImg,
-  'Udhayakumar': udhayakumarElevImg,
-  'Sivagurunathan': sivagurunathanElevImg,
-  'Suresh': sureshElevImg,
+  'MR. Rajkamal': rajkamalImg,
+  'MR. Udhayakumar': udhayakumarElevImg,
+  'MR. Sivagurunathan': sivagurunathanElevImg,
+  'MR. Jaya Gandhi': jayagandhiElevImg,
+  'MR. Sathish': sathishElevImg,
+  'MR. Suresh': sureshElevImg,
+  'MR. Bhaskar': bhaskarElevImg,
+};
+
+const commercialImages = {
+  'BK Ratan': bkRatanElevImg,
+  'Suraj Spare Parts': bkSurajElevImg,
 };
 
 const FILTERS = [
@@ -36,6 +49,7 @@ const FILTERS = [
   { id: 'apartments', label: 'Apartments', icon: Building2 },
   { id: 'villas', label: 'Individual Villas', icon: Home },
   { id: 'contract', label: 'Contract Work', icon: Hammer },
+  { id: 'commercial', label: 'Commercial', icon: Store },
   { id: 'completed', label: 'Completed', icon: CheckCircle },
 ];
 
@@ -127,7 +141,7 @@ function OngoingCard({ project, index }) {
 
 // ── Contract Work Card ────────────────────────────────
 function ContractCard({ project, index }) {
-  const img = contractImages[project.name] || project.image;
+  const img = contractImages[project.name];
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -136,7 +150,11 @@ function ContractCard({ project, index }) {
       style={{ background: '#120f24', border: '1px solid rgba(248,246,240,0.07)', overflow: 'hidden' }}
     >
       <div style={{ height: '200px', overflow: 'hidden', position: 'relative' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        {img ? (
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        ) : (
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #120f24, #0a0818)' }} />
+        )}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,4,14,0.85) 0%, transparent 60%)' }} />
         <div style={{
           position: 'absolute', top: '12px', right: '12px',
@@ -148,6 +166,55 @@ function ContractCard({ project, index }) {
           textTransform: 'uppercase',
         }}>
           {project.status || 'Ongoing'}
+        </div>
+      </div>
+      <div style={{ padding: '20px 24px' }}>
+        <h4 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', fontWeight: 400, color: '#F8F6F0', marginBottom: '6px' }}>{project.name}</h4>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(248,246,240,0.4)' }}>
+          <MapPin size={10} style={{ color: '#C9A84C' }} /><span>{project.location}</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Commercial Project Card ───────────────────────────
+function CommercialCard({ project, index }) {
+  const img = commercialImages[project.name];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.06 }}
+      style={{ background: '#120f24', border: '1px solid rgba(248,246,240,0.07)', overflow: 'hidden' }}
+    >
+      <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+        {img ? (
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        ) : (
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #120f24, #0a0818)' }} />
+        )}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,4,14,0.85) 0%, transparent 60%)' }} />
+        <div style={{
+          position: 'absolute', top: '12px', left: '12px',
+          padding: '4px 10px',
+          background: 'rgba(201,168,76,0.12)',
+          border: '1px solid rgba(201,168,76,0.4)',
+          fontSize: '9px', letterSpacing: '2px', color: '#C9A84C', textTransform: 'uppercase',
+        }}>
+          {project.type || 'Commercial'}
+        </div>
+        <div style={{
+          position: 'absolute', top: '12px', right: '12px',
+          padding: '4px 10px',
+          background: project.status === 'Completed' ? 'rgba(74,222,128,0.12)' : 'rgba(201,168,76,0.12)',
+          border: `1px solid ${project.status === 'Completed' ? 'rgba(74,222,128,0.4)' : 'rgba(201,168,76,0.4)'}`,
+          fontSize: '9px', letterSpacing: '2px',
+          color: project.status === 'Completed' ? '#4ade80' : '#C9A84C', textTransform: 'uppercase',
+          display: 'flex', alignItems: 'center', gap: '5px',
+        }}>
+          {project.status === 'Ongoing' && <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#C9A84C', animation: 'pulse 2s ease infinite' }} />}
+          {project.status}
         </div>
       </div>
       <div style={{ padding: '20px 24px' }}>
@@ -258,6 +325,13 @@ export default function ProjectsPage() {
       label: 'Contract Work',
       count: `${contractWork.ongoing.length + contractWork.completed.length}`,
       description: 'End-to-end civil contract work for residential clients. Quality execution guaranteed.',
+    },
+    {
+      id: 'commercial',
+      icon: Store,
+      label: 'Commercial Projects',
+      count: `${commercialWork.ongoing.length + commercialWork.completed.length}`,
+      description: 'Modern commercial spaces — showrooms, offices, and retail developments across Tiruvallur.',
     },
     {
       id: 'completed',
@@ -438,6 +512,39 @@ export default function ProjectsPage() {
                     ))}
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* COMMERCIAL */}
+            {activeFilter === 'commercial' && (
+              <div>
+                <SectionHeader badge="Commercial" title="Commercial" accent="Projects" />
+
+                <div style={{ marginBottom: '48px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(201,168,76,0.1)' }}>
+                    <Clock size={13} style={{ color: '#C9A84C' }} />
+                    <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase' }}>Ongoing</span>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                    {commercialWork.ongoing.map((p, i) => (
+                      <CommercialCard key={p.name} project={{ ...p, status: 'Ongoing' }} index={i} />
+                    ))}
+                  </div>
+                </div>
+
+                {commercialWork.completed.length > 0 && (
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(201,168,76,0.1)' }}>
+                      <CheckCircle size={13} style={{ color: '#4ade80' }} />
+                      <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#4ade80', textTransform: 'uppercase' }}>Completed</span>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                      {commercialWork.completed.map((p, i) => (
+                        <CommercialCard key={p.name} project={{ ...p, status: 'Completed' }} index={i} />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
