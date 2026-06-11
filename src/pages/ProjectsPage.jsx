@@ -8,6 +8,11 @@ import bkChandraElevationImg from '../assets/projects/BK_Chandra_Elevation.png';
 import bkAmsSuryaImg from '../assets/projects/BK_AMS_&_Surya.png';
 import bkSkandhaImg from '../assets/projects/BK_Skandha.png';
 import rajkamalImg from '../assets/projects/Rajkamal_Contract_Work copy.jpeg';
+import mrHitech5aElevImg from '../assets/projects/M.R._HI-TECH_CITY_Plot-5A_Elevation.jpeg';
+import mrHitech5bElevImg from '../assets/projects/M.R._HI-TECH_CITY_Plot-5B_Elevation.jpeg';
+import udhayakumarElevImg from '../assets/projects/Udhayakumar_Contract_Elevation.jpeg';
+import sivagurunathanElevImg from '../assets/projects/Sivagurunathan_Contract_Elevation.jpeg';
+import sureshElevImg from '../assets/projects/Suresh_Contract_Elevation.jpeg';
 
 const projectImages = {
   'bk-chandra': bkChandraElevationImg,
@@ -15,6 +20,15 @@ const projectImages = {
   'bk-ams': bkAmsSuryaImg,
   'bk-surya': bkAmsSuryaImg,
   'bk-skandha-south': bkSkandhaImg,
+  'mr-hitech-5a': mrHitech5aElevImg,
+  'mr-hitech-5b': mrHitech5bElevImg,
+};
+
+const contractImages = {
+  'Rajkamal': rajkamalImg,
+  'Udhayakumar': udhayakumarElevImg,
+  'Sivagurunathan': sivagurunathanElevImg,
+  'Suresh': sureshElevImg,
 };
 
 const FILTERS = [
@@ -113,7 +127,7 @@ function OngoingCard({ project, index }) {
 
 // ── Contract Work Card ────────────────────────────────
 function ContractCard({ project, index }) {
-  const img = project.name === 'Rajkamal' ? rajkamalImg : project.image;
+  const img = contractImages[project.name] || project.image;
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

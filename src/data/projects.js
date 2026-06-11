@@ -341,15 +341,15 @@ export const completedProjects = [
 // ── CONTRACT WORK ─────────────────────────────────────────────────────────────
 export const contractWork = {
   ongoing: [
-    { name: "Udhyakumar", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" },
-    { name: "Rajkamal", location: "Tiruvallur", image: "/assets/projects/Rajkamal_Contract_Work copy.jpeg", hasElevation: true },
+    { name: "Udhayakumar", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" },
+    { name: "Rajkamal", location: "Tiruvallur", image: "/assets/projects/Rajkamal_Contract_Work copy.jpeg" },
+    { name: "Sivagurunathan", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80" },
     { name: "Vilivadhan", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80" },
     { name: "Vinoth", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=700&q=80" },
     { name: "Vasudvan", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80" },
   ],
   completed: [
     { name: "Suresh", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=700&q=80" },
-    { name: "Sivagurunadhar", location: "Tiruvallur", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80" },
   ]
 };
 
