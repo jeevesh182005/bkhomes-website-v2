@@ -15,6 +15,10 @@ import amsTypicalFloorPlanImg from '../assets/projects/AMS_TypicalPlan.png';
 import suryaGroundFloorPlanImg from '../assets/projects/BK_Surya_Ground_FloorPlan.png';
 import suryaFirstFloorPlanImg from '../assets/projects/BK_Surya_FirstFloorPlan.png';
 import suryaTypicalFloorPlanImg from '../assets/projects/BK_Surya_2nd&3rd_FloorPlan.png';
+import mrHitech5aElevImg from '../assets/projects/M.R._HI-TECH_CITY_Plot-5A_Elevation.jpeg';
+import mrHitech5aFloorImg from '../assets/projects/M.R._HI-TECH_CITY_Plot-5A_FloorPlan.png';
+import mrHitech5bElevImg from '../assets/projects/M.R._HI-TECH_CITY_Plot-5B_Elevation.jpeg';
+import mrHitech5bFloorImg from '../assets/projects/M.R._HI-TECH_CITY_Plot-5B_FloorPlan.png';
 
 const projectImages = {
   'bk-chandra': bkChandraElevationImg,
@@ -22,6 +26,8 @@ const projectImages = {
   'bk-ams': bkAmsSuryaImg,
   'bk-surya': bkAmsSuryaImg,
   'bk-skandha-south': bkSkandhaImg,
+  'mr-hitech-5a': mrHitech5aElevImg,
+  'mr-hitech-5b': mrHitech5bElevImg,
 };
 
 const projectFloorPlanImages = {
@@ -40,6 +46,12 @@ const projectFloorPlanImages = {
     { key: 'ground', label: 'Ground Floor (Parking)', img: suryaGroundFloorPlanImg },
     { key: 'first', label: 'First Floor (4BHK)', img: suryaFirstFloorPlanImg },
     { key: 'typical', label: 'Typical Floor (2nd & 3rd)', img: suryaTypicalFloorPlanImg },
+  ],
+  'mr-hitech-5a': [
+    { key: 'ground', label: 'Ground Floor Plan', img: mrHitech5aFloorImg },
+  ],
+  'mr-hitech-5b': [
+    { key: 'ground', label: 'Ground Floor Plan', img: mrHitech5bFloorImg },
   ],
 };
 
