@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, MapPin, Phone, Home, Building2, ChevronRight, CheckCircle, ZoomIn } from 'lucide-react';
+import { ArrowLeft, MapPin, Phone, Hop as Home, Building2, ChevronRight, CircleCheck as CheckCircle, ZoomIn } from 'lucide-react';
 import { ongoingApartments, ongoingVillas } from '../data/projects';
 
 import bkChandraElevationImg from '../assets/projects/BK_Chandra_Elevation.png';

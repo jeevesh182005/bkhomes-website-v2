@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
+import { MapPin, Phone, ArrowRight, CircleCheck as CheckCircle, Circle as XCircle } from 'lucide-react';
 import { mohanGardenPlots } from '../data/projects';
 
 export default function MohanGardenPage() {
