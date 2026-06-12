@@ -45,10 +45,10 @@ const commercialImages = {
 };
 
 const FILTERS = [
-  { id: 'all', label: 'All Projects', icon: Award },
+  { id: 'all', label: 'All', icon: Award },
   { id: 'apartments', label: 'Apartments', icon: Building2 },
-  { id: 'villas', label: 'Individual Villas', icon: Home },
-  { id: 'contract', label: 'Contract Work', icon: Hammer },
+  { id: 'villas', label: 'Villas', icon: Home },
+  { id: 'contract', label: 'Contract', icon: Hammer },
   { id: 'commercial', label: 'Commercial', icon: Store },
   { id: 'completed', label: 'Completed', icon: CheckCircle },
 ];
@@ -64,7 +64,7 @@ function OngoingCard({ project, index }) {
     <motion.div
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
+      transition={{ duration: 0.5, delay: index * 0.07 }}
     >
       <Link
         to={`/projects/${project.id}`}
@@ -78,8 +78,7 @@ function OngoingCard({ project, index }) {
           boxShadow: hov ? '0 8px 40px rgba(0,0,0,0.4)' : 'none',
         }}
       >
-        {/* Image */}
-        <div style={{ height: '280px', overflow: 'hidden', position: 'relative' }}>
+        <div style={{ height: 'clamp(200px, 30vw, 280px)', overflow: 'hidden', position: 'relative' }}>
           <div style={{
             position: 'absolute', inset: 0,
             backgroundImage: `url(${img})`,
@@ -88,10 +87,9 @@ function OngoingCard({ project, index }) {
             transition: 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
           }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,4,14,0.92) 0%, transparent 55%)' }} />
-
           <div style={{
             position: 'absolute', top: '14px', left: '14px',
-            padding: '4px 12px',
+            padding: '4px 10px',
             background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.5)',
             fontSize: '9px', letterSpacing: '2px', color: '#C9A84C', textTransform: 'uppercase',
             display: 'flex', alignItems: 'center', gap: '5px',
@@ -99,11 +97,10 @@ function OngoingCard({ project, index }) {
             <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#C9A84C', animation: 'pulse 2s ease infinite' }} />
             Ongoing
           </div>
-
           {freeCount !== null && (
             <div style={{
               position: 'absolute', top: '14px', right: '14px',
-              padding: '4px 12px',
+              padding: '4px 10px',
               background: freeCount > 0 ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)',
               border: `1px solid ${freeCount > 0 ? 'rgba(34,197,94,0.4)' : 'rgba(239,68,68,0.4)'}`,
               fontSize: '9px', letterSpacing: '2px',
@@ -112,20 +109,16 @@ function OngoingCard({ project, index }) {
               {freeCount}/{totalCount} Free
             </div>
           )}
-
-          {/* Project name overlay at bottom */}
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 24px' }}>
-            <div style={{ fontSize: '9px', letterSpacing: '3px', color: '#C9A84C', marginBottom: '6px', textTransform: 'uppercase' }}>{project.type}</div>
-            <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '26px', fontWeight: 400, color: '#F8F6F0', marginBottom: '4px' }}>{project.name}</h3>
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '16px 20px' }}>
+            <div style={{ fontSize: '9px', letterSpacing: '3px', color: '#C9A84C', marginBottom: '4px', textTransform: 'uppercase' }}>{project.type}</div>
+            <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 400, color: '#F8F6F0', marginBottom: '4px' }}>{project.name}</h3>
             <div style={{ fontSize: '11px', color: 'rgba(248,246,240,0.5)', display: 'flex', alignItems: 'center', gap: '5px' }}>
               <MapPin size={10} /><span>{(project.location || 'Tiruvallur').split(',')[0].trim()}</span>
             </div>
           </div>
         </div>
-
-        {/* Footer row */}
-        <div style={{ padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(248,246,240,0.05)' }}>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(248,246,240,0.05)', flexWrap: 'wrap', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             {project.floors && <span style={{ padding: '3px 10px', background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.2)', fontSize: '10px', color: '#C9A84C' }}>{project.floors} Floors</span>}
             {project.totalFlats && <span style={{ padding: '3px 10px', background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.2)', fontSize: '10px', color: '#C9A84C' }}>{project.totalFlats} Units</span>}
             {project.builtArea && <span style={{ padding: '3px 10px', background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.2)', fontSize: '10px', color: '#C9A84C' }}>{project.builtArea}</span>}
@@ -149,7 +142,7 @@ function ContractCard({ project, index }) {
       transition={{ duration: 0.4, delay: index * 0.06 }}
       style={{ background: '#120f24', border: '1px solid rgba(248,246,240,0.07)', overflow: 'hidden' }}
     >
-      <div style={{ height: '200px', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ height: 'clamp(160px, 25vw, 200px)', overflow: 'hidden', position: 'relative' }}>
         {img ? (
           <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
         ) : (
@@ -168,8 +161,8 @@ function ContractCard({ project, index }) {
           {project.status || 'Ongoing'}
         </div>
       </div>
-      <div style={{ padding: '20px 24px' }}>
-        <h4 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', fontWeight: 400, color: '#F8F6F0', marginBottom: '6px' }}>{project.name}</h4>
+      <div style={{ padding: '16px 20px' }}>
+        <h4 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 400, color: '#F8F6F0', marginBottom: '6px' }}>{project.name}</h4>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(248,246,240,0.4)' }}>
           <MapPin size={10} style={{ color: '#C9A84C' }} /><span>{project.location}</span>
         </div>
@@ -178,7 +171,7 @@ function ContractCard({ project, index }) {
   );
 }
 
-// ── Commercial Project Card ───────────────────────────
+// ── Commercial Card ───────────────────────────────────
 function CommercialCard({ project, index }) {
   const img = commercialImages[project.name];
   return (
@@ -188,37 +181,29 @@ function CommercialCard({ project, index }) {
       transition={{ duration: 0.4, delay: index * 0.06 }}
       style={{ background: '#120f24', border: '1px solid rgba(248,246,240,0.07)', overflow: 'hidden' }}
     >
-      <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ height: 'clamp(180px, 28vw, 220px)', overflow: 'hidden', position: 'relative' }}>
         {img ? (
           <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
         ) : (
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #120f24, #0a0818)' }} />
         )}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,4,14,0.85) 0%, transparent 60%)' }} />
-        <div style={{
-          position: 'absolute', top: '12px', left: '12px',
-          padding: '4px 10px',
-          background: 'rgba(201,168,76,0.12)',
-          border: '1px solid rgba(201,168,76,0.4)',
-          fontSize: '9px', letterSpacing: '2px', color: '#C9A84C', textTransform: 'uppercase',
-        }}>
+        <div style={{ position: 'absolute', top: '12px', left: '12px', padding: '4px 10px', background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.4)', fontSize: '9px', letterSpacing: '2px', color: '#C9A84C', textTransform: 'uppercase' }}>
           {project.type || 'Commercial'}
         </div>
         <div style={{
-          position: 'absolute', top: '12px', right: '12px',
-          padding: '4px 10px',
+          position: 'absolute', top: '12px', right: '12px', padding: '4px 10px',
           background: project.status === 'Completed' ? 'rgba(74,222,128,0.12)' : 'rgba(201,168,76,0.12)',
           border: `1px solid ${project.status === 'Completed' ? 'rgba(74,222,128,0.4)' : 'rgba(201,168,76,0.4)'}`,
-          fontSize: '9px', letterSpacing: '2px',
-          color: project.status === 'Completed' ? '#4ade80' : '#C9A84C', textTransform: 'uppercase',
+          fontSize: '9px', letterSpacing: '2px', color: project.status === 'Completed' ? '#4ade80' : '#C9A84C', textTransform: 'uppercase',
           display: 'flex', alignItems: 'center', gap: '5px',
         }}>
           {project.status === 'Ongoing' && <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#C9A84C', animation: 'pulse 2s ease infinite' }} />}
           {project.status}
         </div>
       </div>
-      <div style={{ padding: '20px 24px' }}>
-        <h4 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', fontWeight: 400, color: '#F8F6F0', marginBottom: '6px' }}>{project.name}</h4>
+      <div style={{ padding: '16px 20px' }}>
+        <h4 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 400, color: '#F8F6F0', marginBottom: '6px' }}>{project.name}</h4>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(248,246,240,0.4)' }}>
           <MapPin size={10} style={{ color: '#C9A84C' }} /><span>{project.location}</span>
         </div>
@@ -236,32 +221,27 @@ function CompletedItem({ project, index }) {
       transition={{ duration: 0.3, delay: index * 0.03 }}
       style={{
         display: 'flex', alignItems: 'center', gap: '16px',
-        padding: '14px 20px',
+        padding: 'clamp(12px, 2vw, 16px) clamp(16px, 3vw, 24px)',
         border: '1px solid rgba(248,246,240,0.05)',
         background: 'rgba(18,15,36,0.4)',
         transition: 'border-color 0.2s, background 0.2s', cursor: 'default',
+        flexWrap: 'wrap',
       }}
       onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(201,168,76,0.15)'; e.currentTarget.style.background = 'rgba(201,168,76,0.04)'; }}
       onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(248,246,240,0.05)'; e.currentTarget.style.background = 'rgba(18,15,36,0.4)'; }}
     >
       <CheckCircle size={14} style={{ color: '#C9A84C', flexShrink: 0 }} />
-      <div style={{ flex: 1 }}>
-        <span style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '18px', color: '#F8F6F0' }}>{project.name}</span>
+      <div style={{ flex: 1, minWidth: '160px' }}>
+        <span style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(16px, 2vw, 18px)', color: '#F8F6F0' }}>{project.name}</span>
         <span style={{ fontSize: '11px', color: 'rgba(248,246,240,0.4)', marginLeft: '12px' }}>{project.location}</span>
       </div>
-      <span style={{
-        padding: '3px 10px',
-        background: 'rgba(201,168,76,0.08)',
-        border: '1px solid rgba(201,168,76,0.15)',
-        fontSize: '9px', letterSpacing: '2px',
-        color: '#C9A84C', textTransform: 'uppercase',
-      }}>{project.type}</span>
+      <span style={{ padding: '3px 10px', background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.15)', fontSize: '9px', letterSpacing: '2px', color: '#C9A84C', textTransform: 'uppercase' }}>{project.type}</span>
     </motion.div>
   );
 }
 
-// ── Overview card for "All" view ──────────────────────
-function CategoryOverviewCard({ icon: Icon, label, count, description, onClick, color }) {
+// ── Overview card ─────────────────────────────────────
+function CategoryOverviewCard({ icon: Icon, label, count, description, onClick }) {
   const [hov, setHov] = useState(false);
   return (
     <motion.div
@@ -271,25 +251,19 @@ function CategoryOverviewCard({ icon: Icon, label, count, description, onClick, 
       onMouseLeave={() => setHov(false)}
       onClick={onClick}
       style={{
-        padding: '40px 36px',
+        padding: 'clamp(24px, 4vw, 40px) clamp(20px, 3vw, 36px)',
         border: `1px solid ${hov ? 'rgba(201,168,76,0.3)' : 'rgba(248,246,240,0.06)'}`,
         background: hov ? 'rgba(201,168,76,0.05)' : 'rgba(18,15,36,0.6)',
-        cursor: 'pointer',
-        transition: 'all 0.35s',
+        cursor: 'pointer', transition: 'all 0.35s',
         position: 'relative', overflow: 'hidden',
         height: '100%', display: 'flex', flexDirection: 'column',
       }}
     >
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px',
-        background: '#C9A84C',
-        transform: hov ? 'scaleX(1)' : 'scaleX(0)',
-        transformOrigin: 'left', transition: 'transform 0.4s ease',
-      }} />
-      <div style={{ marginBottom: '20px', color: '#C9A84C' }}><Icon size={28} /></div>
-      <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '48px', fontWeight: 300, color: '#C9A84C', lineHeight: 1, marginBottom: '12px' }}>{count}</div>
-      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', fontWeight: 400, color: '#F8F6F0', marginBottom: '10px' }}>{label}</h3>
-      <p style={{ fontSize: '13px', color: 'rgba(248,246,240,0.45)', lineHeight: 1.7, marginBottom: '20px' }}>{description}</p>
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px', background: '#C9A84C', transform: hov ? 'scaleX(1)' : 'scaleX(0)', transformOrigin: 'left', transition: 'transform 0.4s ease' }} />
+      <div style={{ marginBottom: '16px', color: '#C9A84C' }}><Icon size={24} /></div>
+      <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(36px, 5vw, 48px)', fontWeight: 300, color: '#C9A84C', lineHeight: 1, marginBottom: '10px' }}>{count}</div>
+      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 400, color: '#F8F6F0', marginBottom: '8px' }}>{label}</h3>
+      <p style={{ fontSize: '13px', color: 'rgba(248,246,240,0.45)', lineHeight: 1.7, marginBottom: '16px' }}>{description}</p>
       <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: '#C9A84C', letterSpacing: '2px', textTransform: 'uppercase', opacity: hov ? 1 : 0.5, transition: 'opacity 0.3s' }}>
         <span>View</span><ArrowRight size={11} />
       </div>
@@ -297,168 +271,122 @@ function CategoryOverviewCard({ icon: Icon, label, count, description, onClick, 
   );
 }
 
+function SectionHeader({ badge, title, accent }) {
+  return (
+    <div style={{ marginBottom: 'clamp(32px, 5vw, 48px)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '14px' }}>
+        <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
+        <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>{badge}</span>
+      </div>
+      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 300, lineHeight: 1.1 }}>
+        {title} <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>{accent}</em>
+      </h2>
+    </div>
+  );
+}
+
+function SubHeader({ icon: Icon, label, color = '#C9A84C' }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(201,168,76,0.1)' }}>
+      <Icon size={13} style={{ color }} />
+      <span style={{ fontSize: '10px', letterSpacing: '3px', color, textTransform: 'uppercase' }}>{label}</span>
+    </div>
+  );
+}
+
 // ── MAIN PAGE ─────────────────────────────────────────
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState('all');
-
   const totalOngoing = ongoingApartments.length + ongoingVillas.length;
   const totalCompleted = completedProjects.length;
+  const totalContract = contractWork.ongoing.length + contractWork.completed.length;
+  const totalCommercial = commercialWork.ongoing.length + commercialWork.completed.length;
 
   const overviewCards = [
-    {
-      id: 'apartments',
-      icon: Building2,
-      label: 'Ongoing Apartments',
-      count: `${ongoingApartments.length}`,
-      description: 'Premium 3 & 4 BHK apartment complexes in prime Tiruvallur locations with modern amenities.',
-    },
-    {
-      id: 'villas',
-      icon: Home,
-      label: 'Individual Villas',
-      count: `${ongoingVillas.length}`,
-      description: 'Bespoke villas crafted to match your vision — from foundation to finishing.',
-    },
-    {
-      id: 'contract',
-      icon: Hammer,
-      label: 'Contract Work',
-      count: `${contractWork.ongoing.length + contractWork.completed.length}`,
-      description: 'End-to-end civil contract work for residential clients. Quality execution guaranteed.',
-    },
-    {
-      id: 'commercial',
-      icon: Store,
-      label: 'Commercial Projects',
-      count: `${commercialWork.ongoing.length + commercialWork.completed.length}`,
-      description: 'Modern commercial spaces — showrooms, offices, and retail developments across Tiruvallur.',
-    },
-    {
-      id: 'completed',
-      icon: Award,
-      label: 'Completed Projects',
-      count: `${totalCompleted}+`,
-      description: 'Over two decades of delivered homes, apartments, and villas across Tamil Nadu.',
-    },
+    { id: 'apartments', icon: Building2, label: 'Ongoing Apartments', count: String(ongoingApartments.length), description: 'Premium 3 & 4 BHK apartment complexes in prime Tiruvallur locations.' },
+    { id: 'villas', icon: Home, label: 'Individual Villas', count: String(ongoingVillas.length), description: 'Bespoke villas crafted to match your vision — foundation to finishing.' },
+    { id: 'contract', icon: Hammer, label: 'Contract Work', count: String(totalContract), description: 'End-to-end civil contract work for residential clients.' },
+    { id: 'commercial', icon: Store, label: 'Commercial', count: String(totalCommercial), description: 'Modern commercial spaces — showrooms, offices, and retail developments.' },
+    { id: 'completed', icon: Award, label: 'Completed', count: `${totalCompleted}+`, description: 'Over a decade of delivered homes and apartments across Tamil Nadu.' },
   ];
 
   return (
-    <main style={{ minHeight: '100vh', background: '#0a0818', paddingTop: '100px' }}>
-
-      {/* Hero strip */}
-      <section style={{
-        padding: '60px 80px 80px',
-        background: 'linear-gradient(135deg, #120f24 0%, #0a0818 100%)',
-        borderBottom: '1px solid rgba(201,168,76,0.1)',
-        position: 'relative', overflow: 'hidden',
-      }} className="projects-hero">
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '40%', background: 'radial-gradient(ellipse at right center, rgba(201,168,76,0.06), transparent 70%)', pointerEvents: 'none' }} />
+    <main style={{ minHeight: '100vh', background: '#0a0818', paddingTop: '72px' }}>
+      {/* Hero */}
+      <section className="projects-hero" style={{ background: 'linear-gradient(135deg, #120f24 0%, #0a0818 100%)', borderBottom: '1px solid rgba(201,168,76,0.1)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '40%', background: 'radial-gradient(ellipse at right, rgba(201,168,76,0.06), transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
           <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
           <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>Our Portfolio</span>
         </div>
-        <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(40px, 5vw, 72px)', fontWeight: 300, lineHeight: 1.1, marginBottom: '20px' }}>
+        <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(36px, 7vw, 72px)', fontWeight: 300, lineHeight: 1.1, marginBottom: '16px' }}>
           All <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Projects</em>
         </h1>
-        <p style={{ fontSize: '16px', color: 'rgba(248,246,240,0.55)', maxWidth: '560px', lineHeight: 1.8 }}>
-          Premium apartments, individual villas, and contract work — delivered with quality and care since 2011.
+        <p style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', color: 'rgba(248,246,240,0.55)', maxWidth: '540px', lineHeight: 1.8 }}>
+          Premium apartments, individual villas, contract work, and commercial projects — delivered with quality since 2011.
         </p>
-
-        {/* Stats */}
-        <div style={{ display: 'flex', gap: '48px', marginTop: '48px', flexWrap: 'wrap' }} className="projects-stats">
+        <div className="projects-stats" style={{ display: 'flex', flexWrap: 'wrap', marginTop: '40px' }}>
           {[
             { n: String(ongoingApartments.length), l: 'Ongoing Apartments' },
             { n: String(ongoingVillas.length), l: 'Ongoing Villas' },
             { n: String(totalOngoing), l: 'Total Ongoing' },
-            { n: String(totalCompleted) + '+', l: 'Completed Projects' },
+            { n: `${totalCompleted}+`, l: 'Completed' },
           ].map((s, i) => (
-            <div key={i}>
-              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '36px', fontWeight: 300, color: '#C9A84C' }}>{s.n}</div>
+            <div key={i} style={{ paddingRight: 'clamp(24px, 4vw, 48px)', paddingBottom: '16px' }}>
+              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(28px, 4vw, 36px)', fontWeight: 300, color: '#C9A84C' }}>{s.n}</div>
               <div style={{ fontSize: '11px', letterSpacing: '2px', color: 'rgba(248,246,240,0.4)', marginTop: '4px' }}>{s.l}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── Filter Bar ── */}
-      <div style={{
-        position: 'sticky', top: '80px', zIndex: 50,
-        background: 'rgba(10,8,24,0.97)',
-        borderBottom: '1px solid rgba(201,168,76,0.1)',
-        backdropFilter: 'blur(16px)',
-        padding: '0 80px',
-        display: 'flex', gap: 0, overflowX: 'auto',
-      }} className="filter-bar">
+      {/* Filter bar */}
+      <div className="filter-bar" style={{ position: 'sticky', top: '72px', zIndex: 50, background: 'rgba(10,8,24,0.97)', borderBottom: '1px solid rgba(201,168,76,0.1)', backdropFilter: 'blur(16px)', display: 'flex', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
         {FILTERS.map(f => {
           const Icon = f.icon;
           const active = activeFilter === f.id;
           return (
-            <button
-              key={f.id}
-              onClick={() => setActiveFilter(f.id)}
-              style={{
-                display: 'flex', alignItems: 'center', gap: '8px',
-                padding: '18px 24px',
-                background: 'transparent',
-                border: 'none',
-                borderBottom: `2px solid ${active ? '#C9A84C' : 'transparent'}`,
-                color: active ? '#C9A84C' : 'rgba(248,246,240,0.4)',
-                fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase',
-                cursor: 'pointer', transition: 'all 0.3s',
-                fontFamily: 'Outfit, sans-serif',
-                whiteSpace: 'nowrap',
-              }}
-              onMouseEnter={e => { if (!active) { e.currentTarget.style.color = 'rgba(248,246,240,0.8)'; } }}
-              onMouseLeave={e => { if (!active) { e.currentTarget.style.color = 'rgba(248,246,240,0.4)'; } }}
-            >
-              <Icon size={13} />
-              {f.label}
+            <button key={f.id} onClick={() => setActiveFilter(f.id)} style={{
+              display: 'flex', alignItems: 'center', gap: '7px',
+              padding: 'clamp(14px, 2vw, 18px) clamp(14px, 2vw, 22px)',
+              background: 'transparent', border: 'none',
+              borderBottom: `2px solid ${active ? '#C9A84C' : 'transparent'}`,
+              color: active ? '#C9A84C' : 'rgba(248,246,240,0.4)',
+              fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase',
+              cursor: 'pointer', transition: 'all 0.3s',
+              fontFamily: 'Outfit, sans-serif', whiteSpace: 'nowrap', flexShrink: 0,
+            }}>
+              <Icon size={12} />{f.label}
             </button>
           );
         })}
       </div>
 
-      {/* ── Content Area ── */}
-      <div style={{ padding: '60px 80px 100px', minHeight: '60vh' }} className="projects-content">
+      {/* Content */}
+      <div className="projects-content">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFilter}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <motion.div key={activeFilter} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.35 }}>
 
-            {/* ALL — Overview */}
+            {/* ALL */}
             {activeFilter === 'all' && (
               <div>
-                <div style={{ marginBottom: '48px' }}>
-                  <div style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '12px' }}>Portfolio Overview</div>
-                  <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(28px, 3vw, 44px)', fontWeight: 300 }}>
+                <div style={{ marginBottom: 'clamp(32px, 5vw, 48px)' }}>
+                  <div style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '10px' }}>Portfolio Overview</div>
+                  <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(26px, 4vw, 44px)', fontWeight: 300 }}>
                     Browse by <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Category</em>
                   </h2>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px', marginBottom: '60px', alignItems: 'stretch' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))', gap: '16px', marginBottom: '60px', alignItems: 'stretch' }}>
                   {overviewCards.map((c, i) => (
                     <motion.div key={c.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} style={{ height: '100%' }}>
-                      <CategoryOverviewCard
-                        icon={c.icon}
-                        label={c.label}
-                        count={c.count}
-                        description={c.description}
-                        onClick={() => setActiveFilter(c.id)}
-                      />
+                      <CategoryOverviewCard icon={c.icon} label={c.label} count={c.count} description={c.description} onClick={() => setActiveFilter(c.id)} />
                     </motion.div>
                   ))}
                 </div>
-
-                {/* Quick preview — all ongoing */}
-                <div style={{ borderTop: '1px solid rgba(201,168,76,0.1)', paddingTop: '60px' }}>
-                  <div style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '32px' }}>All Ongoing Projects</div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
-                    {[...ongoingApartments, ...ongoingVillas].map((p, i) => (
-                      <OngoingCard key={p.id} project={p} index={i} />
-                    ))}
+                <div style={{ borderTop: '1px solid rgba(201,168,76,0.1)', paddingTop: '48px' }}>
+                  <div style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '28px' }}>All Ongoing Projects</div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: '20px' }}>
+                    {[...ongoingApartments, ...ongoingVillas].map((p, i) => <OngoingCard key={p.id} project={p} index={i} />)}
                   </div>
                 </div>
               </div>
@@ -468,7 +396,7 @@ export default function ProjectsPage() {
             {activeFilter === 'apartments' && (
               <div>
                 <SectionHeader badge="Ongoing · Apartments" title="Premium Apartment" accent="Projects" />
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: '20px' }}>
                   {ongoingApartments.map((p, i) => <OngoingCard key={p.id} project={p} index={i} />)}
                 </div>
               </div>
@@ -478,40 +406,30 @@ export default function ProjectsPage() {
             {activeFilter === 'villas' && (
               <div>
                 <SectionHeader badge="Ongoing · Individual Villas" title="Individual Villa" accent="Projects" />
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))', gap: '20px' }}>
                   {ongoingVillas.map((p, i) => <OngoingCard key={p.id} project={p} index={i} />)}
                 </div>
               </div>
             )}
 
-            {/* CONTRACT WORK */}
+            {/* CONTRACT */}
             {activeFilter === 'contract' && (
               <div>
                 <SectionHeader badge="Contract Work" title="Our Contract" accent="Projects" />
-
-                <div style={{ marginBottom: '48px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(201,168,76,0.1)' }}>
-                    <Clock size={13} style={{ color: '#C9A84C' }} />
-                    <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase' }}>Ongoing</span>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px' }}>
-                    {contractWork.ongoing.map((p, i) => (
-                      <ContractCard key={p.name} project={{ ...p, status: 'Ongoing' }} index={i} />
-                    ))}
+                <div style={{ marginBottom: '40px' }}>
+                  <SubHeader icon={Clock} label="Ongoing" />
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 240px), 1fr))', gap: '16px' }}>
+                    {contractWork.ongoing.map((p, i) => <ContractCard key={p.name} project={{ ...p, status: 'Ongoing' }} index={i} />)}
                   </div>
                 </div>
-
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(201,168,76,0.1)' }}>
-                    <CheckCircle size={13} style={{ color: '#4ade80' }} />
-                    <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#4ade80', textTransform: 'uppercase' }}>Completed</span>
+                {contractWork.completed.length > 0 && (
+                  <div>
+                    <SubHeader icon={CheckCircle} label="Completed" color="#4ade80" />
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 240px), 1fr))', gap: '16px' }}>
+                      {contractWork.completed.map((p, i) => <ContractCard key={p.name} project={{ ...p, status: 'Completed' }} index={i} />)}
+                    </div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px' }}>
-                    {contractWork.completed.map((p, i) => (
-                      <ContractCard key={p.name} project={{ ...p, status: 'Completed' }} index={i} />
-                    ))}
-                  </div>
-                </div>
+                )}
               </div>
             )}
 
@@ -519,29 +437,17 @@ export default function ProjectsPage() {
             {activeFilter === 'commercial' && (
               <div>
                 <SectionHeader badge="Commercial" title="Commercial" accent="Projects" />
-
-                <div style={{ marginBottom: '48px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(201,168,76,0.1)' }}>
-                    <Clock size={13} style={{ color: '#C9A84C' }} />
-                    <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase' }}>Ongoing</span>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
-                    {commercialWork.ongoing.map((p, i) => (
-                      <CommercialCard key={p.name} project={{ ...p, status: 'Ongoing' }} index={i} />
-                    ))}
+                <div style={{ marginBottom: '40px' }}>
+                  <SubHeader icon={Clock} label="Ongoing" />
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '16px' }}>
+                    {commercialWork.ongoing.map((p, i) => <CommercialCard key={p.name} project={{ ...p, status: 'Ongoing' }} index={i} />)}
                   </div>
                 </div>
-
                 {commercialWork.completed.length > 0 && (
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(201,168,76,0.1)' }}>
-                      <CheckCircle size={13} style={{ color: '#4ade80' }} />
-                      <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#4ade80', textTransform: 'uppercase' }}>Completed</span>
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
-                      {commercialWork.completed.map((p, i) => (
-                        <CommercialCard key={p.name} project={{ ...p, status: 'Completed' }} index={i} />
-                      ))}
+                    <SubHeader icon={CheckCircle} label="Completed" color="#4ade80" />
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '16px' }}>
+                      {commercialWork.completed.map((p, i) => <CommercialCard key={p.name} project={{ ...p, status: 'Completed' }} index={i} />)}
                     </div>
                   </div>
                 )}
@@ -552,7 +458,7 @@ export default function ProjectsPage() {
             {activeFilter === 'completed' && (
               <div>
                 <SectionHeader badge="Delivered with Excellence" title="Completed" accent="Projects" />
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '8px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 360px), 1fr))', gap: '8px' }}>
                   {completedProjects.map((p, i) => <CompletedItem key={p.name} project={p} index={i} />)}
                 </div>
               </div>
@@ -564,21 +470,10 @@ export default function ProjectsPage() {
 
       <style>{`
         @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+        .projects-hero { padding: clamp(48px, 7vh, 80px) clamp(16px, 5vw, 80px) clamp(40px, 6vh, 64px); }
+        .projects-content { padding: clamp(40px, 6vw, 60px) clamp(16px, 5vw, 80px) 100px; }
+        .filter-bar { padding: 0 clamp(16px, 5vw, 80px); }
       `}</style>
     </main>
-  );
-}
-
-function SectionHeader({ badge, title, accent }) {
-  return (
-    <div style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-        <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
-        <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>{badge}</span>
-      </div>
-      <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 300, lineHeight: 1.1 }}>
-        {title} <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>{accent}</em>
-      </h2>
-    </div>
   );
 }

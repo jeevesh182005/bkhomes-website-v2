@@ -1,60 +1,67 @@
 import { useEffect, useRef } from 'react';
 
 export default function Cursor() {
-  const dotRef = useRef(null);
-  const ringRef = useRef(null);
+  const cursorRef = useRef(null);
+  const followerRef = useRef(null);
 
   useEffect(() => {
-    const dot = dotRef.current;
-    const ring = ringRef.current;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const cursor = cursorRef.current;
+    const follower = followerRef.current;
+    if (!cursor || !follower) return;
+
     let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
+    let followerX = 0, followerY = 0;
+    let rafId;
 
     const onMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      dot.style.left = mouseX + 'px';
-      dot.style.top = mouseY + 'px';
+      cursor.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
     };
 
     const animate = () => {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(animate);
+      followerX += (mouseX - followerX) * 0.12;
+      followerY += (mouseY - followerY) * 0.12;
+      follower.style.transform = `translate(${followerX - 16}px, ${followerY - 16}px)`;
+      rafId = requestAnimationFrame(animate);
     };
 
-    const onEnterLink = () => {
-      ring.style.width = '60px';
-      ring.style.height = '60px';
-      ring.style.borderColor = 'rgba(201,168,76,0.8)';
-      dot.style.transform = 'translate(-50%,-50%) scale(2)';
-    };
-    const onLeaveLink = () => {
-      ring.style.width = '40px';
-      ring.style.height = '40px';
-      ring.style.borderColor = 'rgba(201,168,76,0.4)';
-      dot.style.transform = 'translate(-50%,-50%) scale(1)';
-    };
+    const onEnter = () => { cursor.style.transform += ' scale(2)'; follower.style.opacity = '0.5'; };
+    const onLeave = () => { follower.style.opacity = '1'; };
 
     document.addEventListener('mousemove', onMove);
-    document.querySelectorAll('a, button, [data-cursor]').forEach(el => {
-      el.addEventListener('mouseenter', onEnterLink);
-      el.addEventListener('mouseleave', onLeaveLink);
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', onEnter);
+      el.addEventListener('mouseleave', onLeave);
     });
 
-    const raf = requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
+
     return () => {
       document.removeEventListener('mousemove', onMove);
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
+  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return null;
+
   return (
     <>
-      <div ref={dotRef} className="cursor-dot" />
-      <div ref={ringRef} className="cursor-ring" />
+      <div ref={cursorRef} style={{
+        position: 'fixed', top: 0, left: 0, zIndex: 9999,
+        width: '8px', height: '8px', borderRadius: '50%',
+        background: '#C9A84C', pointerEvents: 'none',
+        transition: 'transform 0.1s ease',
+        willChange: 'transform',
+      }} />
+      <div ref={followerRef} style={{
+        position: 'fixed', top: 0, left: 0, zIndex: 9998,
+        width: '32px', height: '32px', borderRadius: '50%',
+        border: '1px solid rgba(201,168,76,0.5)', pointerEvents: 'none',
+        willChange: 'transform',
+      }} />
     </>
   );
 }

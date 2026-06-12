@@ -1,173 +1,110 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Navigation } from 'lucide-react';
-import { company } from '../data/projects';
-
-const IgIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-  </svg>
-);
-const FbIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  </svg>
-);
-const YtIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
-  </svg>
-);
+import { Phone, Mail, MapPin, Share2 } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer style={{
-      background: '#05040e',
-      borderTop: '1px solid rgba(201,168,76,0.15)',
-      padding: '80px 60px 40px',
-    }} className="footer-wrap">
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1.6fr 1fr 1fr 1.2fr',
-        gap: '60px',
-        marginBottom: '60px',
-        maxWidth: '1400px', margin: '0 auto 60px',
-      }}
-      className="footer-grid"
-      >
-        {/* Brand */}
-        <div>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '20px' }}>
-            <img src="/logo.png" alt="BK Homes" style={{ height: '50px' }} />
-            <div>
-              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '20px', color: '#F8F6F0', letterSpacing: '3px' }}>BK HOMES</div>
-              <div style={{ fontSize: '9px', letterSpacing: '3px', color: '#C9A84C' }}>TIRUVALLUR</div>
-            </div>
-          </Link>
-          <p style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: '16px', fontStyle: 'italic',
-            color: '#C9A84C', marginBottom: '12px',
-          }}>
-            "{company.tamilQuote}"
-          </p>
-          <p style={{ fontSize: '12px', color: 'rgba(248,246,240,0.4)', letterSpacing: '1px', marginBottom: '24px' }}>
-            {company.tamilQuoteEng}
-          </p>
-          <p style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(248,246,240,0.5)', maxWidth: '300px' }}>
-            Building dreams into reality since 2011. Premium homes, apartments & real estate across Tiruvallur.
-          </p>
-          <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
-            {[
-              { icon: <IgIcon />, href: 'https://www.instagram.com/bkhomes_thiruvallur' },
-              { icon: <FbIcon />, href: 'https://www.facebook.com/bkhomes.in' },
-              { icon: <YtIcon />, href: 'https://www.youtube.com/@BKHOMESTiruvallur' },
-            ].map((s, i) => (
-              <a key={i} href={s.href} target="_blank" rel="noreferrer" style={{
-                width: '38px', height: '38px',
-                border: '1px solid rgba(248,246,240,0.1)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'rgba(248,246,240,0.4)', textDecoration: 'none',
-                transition: 'all 0.3s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#C9A84C'; e.currentTarget.style.color = '#C9A84C'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(248,246,240,0.1)'; e.currentTarget.style.color = 'rgba(248,246,240,0.4)'; }}
-              >
-                {s.icon}
+    <footer style={{ background: '#07050f', borderTop: '1px solid rgba(201,168,76,0.1)', color: '#F8F6F0' }}>
+      <div style={{ padding: 'clamp(48px, 8vh, 80px) clamp(16px, 5vw, 80px) clamp(32px, 4vh, 48px)' }}>
+        {/* Top grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
+          gap: 'clamp(32px, 4vw, 60px)',
+          marginBottom: 'clamp(40px, 6vh, 64px)',
+        }}>
+          {/* Brand */}
+          <div>
+            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 400, color: '#C9A84C', marginBottom: '12px' }}>BK HOMES</div>
+            <div style={{ fontSize: '9px', letterSpacing: '3px', color: 'rgba(201,168,76,0.6)', textTransform: 'uppercase', marginBottom: '16px' }}>Building Dreams Since 2011</div>
+            <p style={{ fontSize: '13px', color: 'rgba(248,246,240,0.5)', lineHeight: 1.8, maxWidth: '260px' }}>
+              Premium residential and commercial construction in Tiruvallur. Quality craftsmanship, on-time delivery.
+            </p>
+            <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
+              <a href="#" aria-label="Social" style={{ width: '36px', height: '36px', border: '1px solid rgba(201,168,76,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C9A84C', transition: 'border-color 0.2s' }}>
+                <Share2 size={14} />
               </a>
-            ))}
+            </div>
           </div>
-        </div>
 
-        {/* Quick Links */}
-        <div>
-          <h5 style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '24px' }}>
-            Quick Links
-          </h5>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', padding: 0 }}>
-            {['Projects', 'Real Estate', 'About Us', 'Contact'].map(l => (
-              <li key={l}>
-                <Link
-                  to={`/${l.toLowerCase().replace(' ', '-')}`}
-                  style={{ fontSize: '14px', color: 'rgba(248,246,240,0.5)', textDecoration: 'none', transition: 'color 0.3s' }}
-                  onMouseEnter={e => e.target.style.color = '#F8F6F0'}
-                  onMouseLeave={e => e.target.style.color = 'rgba(248,246,240,0.5)'}
-                >{l}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Services */}
-        <div>
-          <h5 style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '24px' }}>
-            Our Services
-          </h5>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', padding: 0 }}>
-            {['Apartment Buildings', 'Individual Villas', 'Custom Homes', 'Real Estate', 'Contract Work', 'Joint Venture'].map(s => (
-              <li key={s}>
-                <span style={{ fontSize: '14px', color: 'rgba(248,246,240,0.5)' }}>{s}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Contact */}
-        <div>
-          <h5 style={{ fontSize: '10px', letterSpacing: '4px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '24px' }}>
-            Contact Us
-          </h5>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-            <a href="tel:8870800708" style={{ display: 'flex', gap: '12px', textDecoration: 'none' }}>
-              <Phone size={15} style={{ color: '#C9A84C', marginTop: '2px', flexShrink: 0 }} />
-              <div style={{ fontSize: '14px', color: 'rgba(248,246,240,0.7)' }}>88708 00708</div>
-            </a>
-            <a href="mailto:bkhomes2011@gmail.com" style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', textDecoration: 'none' }}>
-              <Mail size={15} style={{ color: '#C9A84C', marginTop: '2px', flexShrink: 0 }} />
-              <span style={{ fontSize: '13px', color: 'rgba(248,246,240,0.7)' }}>bkhomes2011@gmail.com</span>
-            </a>
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-              <MapPin size={15} style={{ color: '#C9A84C', marginTop: '2px', flexShrink: 0 }} />
-              <div>
-                <div style={{ fontSize: '11px', letterSpacing: '2px', color: '#C9A84C', marginBottom: '4px', textTransform: 'uppercase' }}>Corporate Office</div>
-                <div style={{ fontSize: '13px', color: 'rgba(248,246,240,0.6)', lineHeight: 1.7, marginBottom: '10px' }}>
-                  Plot No. 8C, Vivekananda Salai,<br />Rajajipuram, Tiruvallur – 602 001
-                </div>
-                <a
-                  href="https://www.google.com/maps/search/BK+Homes/"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '5px',
-                    fontSize: '10px', letterSpacing: '2px', color: '#C9A84C',
-                    textDecoration: 'none', textTransform: 'uppercase', opacity: 0.7,
-                    transition: 'opacity 0.3s',
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-                  onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
+          {/* Quick Links */}
+          <div>
+            <div style={{ fontSize: '9px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '20px' }}>Quick Links</div>
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {[
+                { label: 'Home', to: '/' },
+                { label: 'Projects', to: '/projects' },
+                { label: 'About Us', to: '/about' },
+                { label: 'Real Estate', to: '/real-estate' },
+                { label: 'Contact', to: '/contact' },
+              ].map(({ label, to }) => (
+                <Link key={to} to={to} style={{
+                  fontSize: '13px', color: 'rgba(248,246,240,0.5)',
+                  transition: 'color 0.2s',
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#C9A84C'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(248,246,240,0.5)'; }}
                 >
-                  <Navigation size={10} />
-                  Get Directions
-                </a>
+                  <span style={{ width: '16px', height: '1px', background: 'rgba(201,168,76,0.4)', flexShrink: 0 }} />
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Services */}
+          <div>
+            <div style={{ fontSize: '9px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '20px' }}>Our Services</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {['Apartment Development', 'Individual Villas', 'Contract Work', 'Commercial Projects', 'Real Estate / Plots'].map(s => (
+                <span key={s} style={{ fontSize: '13px', color: 'rgba(248,246,240,0.5)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(201,168,76,0.5)', flexShrink: 0 }} />
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <div style={{ fontSize: '9px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '20px' }}>Contact</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <a href="tel:+918870800708" style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '13px', color: 'rgba(248,246,240,0.6)', transition: 'color 0.2s' }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#C9A84C'; }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'rgba(248,246,240,0.6)'; }}
+              >
+                <Phone size={13} style={{ color: '#C9A84C', flexShrink: 0, marginTop: '2px' }} />
+                88708 00708
+              </a>
+              <a href="mailto:bkhomes2011@gmail.com" style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '13px', color: 'rgba(248,246,240,0.6)', transition: 'color 0.2s' }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#C9A84C'; }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'rgba(248,246,240,0.6)'; }}
+              >
+                <Mail size={13} style={{ color: '#C9A84C', flexShrink: 0, marginTop: '2px' }} />
+                bkhomes2011@gmail.com
+              </a>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '13px', color: 'rgba(248,246,240,0.6)' }}>
+                <MapPin size={13} style={{ color: '#C9A84C', flexShrink: 0, marginTop: '2px' }} />
+                <span>Tiruvallur, Tamil Nadu — 602 001</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div style={{
-        borderTop: '1px solid rgba(248,246,240,0.06)',
-        paddingTop: '32px',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        maxWidth: '1400px', margin: '0 auto',
-        flexWrap: 'wrap', gap: '12px',
-      }}>
-        <p style={{ fontSize: '12px', color: 'rgba(248,246,240,0.3)', letterSpacing: '1px' }}>
-          © 2026 BK Homes. All rights reserved. | Think Home, Think BK Homes
-        </p>
-        <p style={{ fontSize: '12px', color: 'rgba(248,246,240,0.3)', letterSpacing: '1px' }}>
-          MD: K. Mohan Kumar | Est. 2011
-        </p>
+        {/* Bottom bar */}
+        <div style={{
+          borderTop: '1px solid rgba(248,246,240,0.06)',
+          paddingTop: '28px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          flexWrap: 'wrap', gap: '12px',
+        }}>
+          <span style={{ fontSize: '11px', color: 'rgba(248,246,240,0.3)', letterSpacing: '1px' }}>
+            © {new Date().getFullYear()} BK Homes. All rights reserved.
+          </span>
+          <span style={{ fontSize: '11px', color: 'rgba(248,246,240,0.3)', letterSpacing: '1px' }}>
+            TNRERA Registered
+          </span>
+        </div>
       </div>
     </footer>
   );

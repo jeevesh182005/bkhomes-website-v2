@@ -1,189 +1,167 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Phone } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Phone } from 'lucide-react';
 
-const navLinks = [
-  { label: 'Projects', path: '/projects' },
-  { label: 'Real Estate', path: '/real-estate' },
-  { label: 'About', path: '/about' },
-  { label: 'Contact', path: '/contact' },
+const NAV_LINKS = [
+  { label: 'Home', to: '/' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'About', to: '/about' },
+  { label: 'Real Estate', to: '/real-estate' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); }, [location]);
+  useEffect(() => { setOpen(false); }, [location.pathname]);
 
-  const handleLogoClick = (e) => {
-    e.preventDefault();
-    if (location.pathname === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      navigate('/');
-      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
-    }
-  };
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  const isActive = (to) => to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="main-nav"
-        style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-          padding: scrolled ? '10px 48px' : '20px 48px',
-          background: scrolled
-            ? 'rgba(10,8,24,0.97)'
-            : 'linear-gradient(to bottom, rgba(10,8,24,0.9), transparent)',
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(201,168,76,0.1)' : 'none',
-          transition: 'all 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
+      <nav style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
+        background: scrolled || open ? 'rgba(10,8,24,0.97)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(201,168,76,0.1)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        transition: 'background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease',
+      }}>
+        <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }}
-      >
-        {/* Logo */}
-        <a
-          href="/"
-          onClick={handleLogoClick}
-          style={{ display: 'flex', alignItems: 'center', gap: '14px', textDecoration: 'none' }}
-        >
-          <img src="/logo.png" alt="BK Homes" style={{ height: '52px', width: 'auto', objectFit: 'contain' }} />
-          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
-            <span style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontSize: '22px', fontWeight: 600,
-              color: '#F8F6F0', letterSpacing: '3px'
-            }}>BK HOMES</span>
-            <span style={{
-              fontSize: '9px', letterSpacing: '4px',
-              color: '#C9A84C', textTransform: 'uppercase', marginTop: '2px'
-            }}>Premium · Construction · Real Estate</span>
-          </div>
-        </a>
+          padding: '0 clamp(16px, 5vw, 80px)',
+          height: '72px',
+        }}>
+          {/* Logo */}
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+            <div style={{
+              width: '40px', height: '40px',
+              border: '1px solid rgba(201,168,76,0.6)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'Cormorant Garamond, serif', fontSize: '20px', fontWeight: 500,
+              color: '#C9A84C',
+            }}>B</div>
+            <div>
+              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '20px', fontWeight: 500, color: '#F8F6F0', letterSpacing: '1px', lineHeight: 1.1 }}>BK HOMES</div>
+              <div style={{ fontSize: '8px', letterSpacing: '3px', color: 'rgba(201,168,76,0.7)', textTransform: 'uppercase', lineHeight: 1 }}>Since 2011</div>
+            </div>
+          </Link>
 
-        {/* Desktop Links */}
-        <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
-          <ul style={{ display: 'flex', gap: '36px', listStyle: 'none', alignItems: 'center', margin: 0, padding: 0 }}>
-            {navLinks.map(link => (
-              <li key={link.path}>
-                <Link
-                  to={link.path}
-                  style={{
-                    textDecoration: 'none',
-                    fontSize: '12px', letterSpacing: '2.5px',
-                    textTransform: 'uppercase', fontWeight: 400,
-                    color: location.pathname === link.path ? '#C9A84C' : 'rgba(248,246,240,0.65)',
-                    transition: 'color 0.3s',
-                    position: 'relative',
-                    paddingBottom: '4px',
-                  }}
-                  onMouseEnter={e => e.target.style.color = '#C9A84C'}
-                  onMouseLeave={e => e.target.style.color = location.pathname === link.path ? '#C9A84C' : 'rgba(248,246,240,0.65)'}
-                >
-                  {link.label}
-                </Link>
-              </li>
+          {/* Desktop nav */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }} className="nav-links">
+            {NAV_LINKS.map(({ label, to }) => (
+              <Link key={to} to={to} style={{
+                padding: '8px 16px',
+                fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase',
+                color: isActive(to) ? '#C9A84C' : 'rgba(248,246,240,0.65)',
+                borderBottom: isActive(to) ? '2px solid #C9A84C' : '2px solid transparent',
+                transition: 'color 0.2s, border-color 0.2s',
+                fontFamily: 'Outfit, sans-serif',
+              }}
+                onMouseEnter={e => { if (!isActive(to)) e.currentTarget.style.color = '#F8F6F0'; }}
+                onMouseLeave={e => { if (!isActive(to)) e.currentTarget.style.color = 'rgba(248,246,240,0.65)'; }}
+              >{label}</Link>
             ))}
-          </ul>
+            <a href="tel:+918870800708" style={{
+              marginLeft: '12px', padding: '8px 20px',
+              background: 'rgba(201,168,76,0.1)',
+              border: '1px solid rgba(201,168,76,0.4)',
+              fontSize: '10px', letterSpacing: '2px',
+              color: '#C9A84C', display: 'flex', alignItems: 'center', gap: '6px',
+              transition: 'background 0.2s',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.2)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.1)'; }}
+            >
+              <Phone size={11} /> 88708 00708
+            </a>
+          </div>
 
-          <a
-            href="tel:8870800708"
-            className="btn-gold"
-            style={{ padding: '11px 24px', fontSize: '10px' }}
-          >
-            <Phone size={13} />
-            <span>88708 00708</span>
-          </a>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          className="nav-mobile-toggle"
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            background: 'none', border: 'none',
-            color: '#C9A84C', cursor: 'pointer',
-            display: 'none',
-            padding: '8px',
-          }}
-        >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </motion.nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          {/* Hamburger */}
+          <button
+            className="hamburger"
+            onClick={() => setOpen(o => !o)}
+            aria-label="Toggle menu"
             style={{
-              position: 'fixed', inset: 0, zIndex: 999,
-              background: 'rgba(10,8,24,0.98)',
-              backdropFilter: 'blur(20px)',
-              display: 'flex', flexDirection: 'column',
-              alignItems: 'center', justifyContent: 'center',
-              gap: '32px',
+              background: 'none', border: '1px solid rgba(201,168,76,0.3)',
+              color: '#C9A84C', padding: '8px',
+              display: 'none', alignItems: 'center', justifyContent: 'center',
             }}
           >
-            <button
-              onClick={() => setMenuOpen(false)}
-              style={{
-                position: 'absolute', top: '24px', right: '24px',
-                background: 'none', border: 'none', color: '#C9A84C', cursor: 'pointer',
-              }}
-            >
-              <X size={28} />
-            </button>
-            {navLinks.map((link, i) => (
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              position: 'fixed', top: '72px', left: 0, right: 0, bottom: 0,
+              background: 'rgba(10,8,24,0.98)', backdropFilter: 'blur(20px)',
+              zIndex: 999, overflowY: 'auto',
+              display: 'flex', flexDirection: 'column',
+              padding: '32px clamp(16px, 5vw, 40px)',
+              gap: '4px',
+            }}
+          >
+            {NAV_LINKS.map(({ label, to }, i) => (
               <motion.div
-                key={link.path}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + i * 0.08 }}
+                key={to}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
               >
-                <Link
-                  to={link.path}
-                  style={{
-                    fontFamily: 'Cormorant Garamond, serif',
-                    fontSize: '36px', fontWeight: 300,
-                    color: location.pathname === link.path ? '#C9A84C' : '#F8F6F0',
-                    textDecoration: 'none',
-                    letterSpacing: '4px',
-                  }}
-                >
-                  {link.label}
+                <Link to={to} style={{
+                  display: 'block', padding: '18px 0',
+                  borderBottom: '1px solid rgba(248,246,240,0.06)',
+                  fontFamily: 'Cormorant Garamond, serif',
+                  fontSize: 'clamp(28px, 7vw, 40px)', fontWeight: 300,
+                  color: isActive(to) ? '#C9A84C' : '#F8F6F0',
+                }}>
+                  {label}
                 </Link>
               </motion.div>
             ))}
-            <motion.a
-              href="tel:8870800708"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="btn-gold"
-              style={{ marginTop: '20px' }}
-            >
-              <Phone size={14} />
-              <span>Call Us Now</span>
-            </motion.a>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} style={{ marginTop: '32px' }}>
+              <a href="tel:+918870800708" style={{
+                display: 'inline-flex', alignItems: 'center', gap: '10px',
+                padding: '14px 28px',
+                background: 'rgba(201,168,76,0.1)',
+                border: '1px solid rgba(201,168,76,0.4)',
+                fontSize: '13px', letterSpacing: '2px', color: '#C9A84C',
+              }}>
+                <Phone size={14} /> 88708 00708
+              </a>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .nav-links { display: none !important; }
+          .hamburger { display: flex !important; }
+        }
+      `}</style>
     </>
   );
 }

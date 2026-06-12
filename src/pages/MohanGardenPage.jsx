@@ -1,411 +1,124 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Phone, MapPin, Info, Grid3x2 as Grid3X3 } from 'lucide-react';
-import { mohanGardenPlots, company } from '../data/projects';
-
-const availableCount = mohanGardenPlots.filter(p => p.status === 'Available').length;
-const bookedCount = mohanGardenPlots.filter(p => p.status === 'Booked').length;
-const totalArea = mohanGardenPlots.reduce((sum, p) => sum + p.area, 0);
-
-function PlotCell({ plot, selected, onSelect }) {
-  const isBooked = plot.status === 'Booked';
-  return (
-    <button
-      onClick={() => onSelect(plot)}
-      style={{
-        position: 'relative',
-        aspectRatio: '1',
-        border: `1.5px solid ${isBooked ? 'rgba(239,68,68,0.4)' : selected ? '#C9A84C' : 'rgba(201,168,76,0.2)'}`,
-        background: isBooked
-          ? 'rgba(239,68,68,0.12)'
-          : selected
-            ? 'rgba(201,168,76,0.15)'
-            : 'rgba(201,168,76,0.04)',
-        cursor: isBooked ? 'not-allowed' : 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.3s',
-        padding: '4px',
-        minWidth: 0,
-      }}
-      onMouseEnter={e => {
-        if (!isBooked) e.currentTarget.style.background = 'rgba(201,168,76,0.12)';
-      }}
-      onMouseLeave={e => {
-        if (!isBooked && !selected) e.currentTarget.style.background = 'rgba(201,168,76,0.04)';
-      }}
-    >
-      <span style={{
-        fontSize: '11px',
-        fontWeight: 600,
-        color: isBooked ? 'rgba(239,68,68,0.7)' : '#C9A84C',
-        lineHeight: 1.2,
-      }}>
-        {plot.no}
-      </span>
-      <span style={{
-        fontSize: '8px',
-        color: isBooked ? 'rgba(239,68,68,0.5)' : 'rgba(248,246,240,0.35)',
-        lineHeight: 1.2,
-        textAlign: 'center',
-      }}>
-        {plot.area} sqft
-      </span>
-      {isBooked && (
-        <span style={{
-          position: 'absolute',
-          top: '2px', right: '2px',
-          width: '6px', height: '6px',
-          borderRadius: '50%',
-          background: '#ef4444',
-        }} />
-      )}
-    </button>
-  );
-}
+import { Link } from 'react-router-dom';
+import { MapPin, Phone, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
+import { mohanGardenPlots } from '../data/projects';
 
 export default function MohanGardenPage() {
-  const [selectedPlot, setSelectedPlot] = useState(null);
-  const [filter, setFilter] = useState('all');
-
-  const filteredPlots = filter === 'all'
-    ? mohanGardenPlots
-    : mohanGardenPlots.filter(p => p.status === (filter === 'available' ? 'Available' : 'Booked'));
+  const available = mohanGardenPlots.filter(p => p.status === 'Available').length;
+  const sold = mohanGardenPlots.filter(p => p.status === 'Sold').length;
+  const avgArea = Math.round(mohanGardenPlots.reduce((s, p) => s + p.area, 0) / mohanGardenPlots.length);
 
   return (
-    <main style={{ minHeight: '100vh', background: '#0a0818', paddingTop: '100px' }}>
-
+    <main style={{ minHeight: '100vh', background: '#0a0818', paddingTop: '72px' }}>
       {/* Hero */}
-      <section style={{
-        padding: '80px 80px 60px',
-        background: 'linear-gradient(135deg, #120f24, #0a0818)',
-        borderBottom: '1px solid rgba(201,168,76,0.1)',
-      }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
-          <Link
-            to="/real-estate"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              fontSize: '11px', letterSpacing: '2px', color: '#C9A84C',
-              textDecoration: 'none', marginBottom: '24px',
-              textTransform: 'uppercase',
-            }}
-          >
-            <ArrowLeft size={14} /> Back to Real Estate
-          </Link>
-
+      <section style={{ padding: 'clamp(60px, 10vh, 120px) clamp(16px, 5vw, 80px)', background: 'linear-gradient(135deg, #120f24 0%, #0a0818 100%)', borderBottom: '1px solid rgba(201,168,76,0.1)' }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
             <div style={{ width: '40px', height: '1px', background: '#C9A84C' }} />
-            <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>
-              Gated Community
-            </span>
+            <span style={{ fontSize: '10px', letterSpacing: '5px', color: '#C9A84C', textTransform: 'uppercase' }}>Real Estate · Plots</span>
           </div>
-
-          <h1 style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(44px, 6vw, 80px)',
-            fontWeight: 300, lineHeight: 1.1, marginBottom: '20px',
-          }}>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(36px, 7vw, 80px)', fontWeight: 300, lineHeight: 1.1, marginBottom: '16px' }}>
             Mohan <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Garden</em>
           </h1>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-            <MapPin size={14} style={{ color: '#C9A84C' }} />
-            <span style={{ fontSize: '14px', color: 'rgba(248,246,240,0.5)' }}>
-              Gated Community — {company.offices.corporate.city}
-            </span>
-          </div>
-
-          <p style={{ fontSize: '15px', color: 'rgba(248,246,240,0.55)', maxWidth: '600px', lineHeight: 1.8 }}>
-            A premium gated community of {mohanGardenPlots.length} residential plots with clear titles,
-            panchayat approval, and well-planned layout. Choose your plot and build your dream home.
+          <p style={{ fontSize: 'clamp(14px, 1.6vw, 16px)', color: 'rgba(248,246,240,0.55)', maxWidth: '520px', lineHeight: 1.8, marginBottom: '32px' }}>
+            Premium residential plots in a well-planned layout with excellent connectivity and all essential amenities nearby.
           </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'rgba(248,246,240,0.6)' }}>
+              <MapPin size={13} style={{ color: '#C9A84C' }} /> Tiruvallur, Tamil Nadu
+            </div>
+          </div>
         </motion.div>
+      </section>
 
-        {/* Stats bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3 }}
-          style={{
-            display: 'flex', gap: '32px', marginTop: '40px',
-            flexWrap: 'wrap',
-          }}
-        >
+      {/* Stats */}
+      <section style={{ padding: 'clamp(40px, 6vh, 60px) clamp(16px, 5vw, 80px)', background: '#120f24', borderBottom: '1px solid rgba(201,168,76,0.08)' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0' }}>
           {[
-            { label: 'Total Plots', value: mohanGardenPlots.length, accent: '#F8F6F0' },
-            { label: 'Available', value: availableCount, accent: '#4ade80' },
-            { label: 'Booked', value: bookedCount, accent: '#ef4444' },
-            { label: 'Total Area', value: `${totalArea.toLocaleString()} sqft`, accent: '#C9A84C' },
+            { val: String(mohanGardenPlots.length), label: 'Total Plots' },
+            { val: String(available), label: 'Available', color: '#4ade80' },
+            { val: String(sold), label: 'Sold' },
+            { val: `~${avgArea}`, label: 'Avg sqft' },
           ].map((s, i) => (
-            <div key={i} style={{
-              padding: '16px 24px',
-              border: '1px solid rgba(248,246,240,0.08)',
-              background: 'rgba(255,255,255,0.02)',
-            }}>
-              <div style={{ fontSize: '9px', letterSpacing: '3px', color: 'rgba(248,246,240,0.35)', textTransform: 'uppercase', marginBottom: '6px' }}>
-                {s.label}
-              </div>
-              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '28px', fontWeight: 400, color: s.accent }}>
-                {s.value}
-              </div>
+            <div key={i} style={{ flex: '1 1 120px', padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)', borderRight: '1px solid rgba(201,168,76,0.1)', textAlign: 'center' }}>
+              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(28px, 4.5vw, 48px)', fontWeight: 300, color: s.color || '#C9A84C', lineHeight: 1 }}>{s.val}</div>
+              <div style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(248,246,240,0.4)', marginTop: '6px', textTransform: 'uppercase' }}>{s.label}</div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </section>
 
-      {/* Interactive Plot Map */}
-      <section style={{ padding: '60px 80px', background: '#0d0b1e' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-
-          {/* Filter + Legend */}
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            marginBottom: '32px', flexWrap: 'wrap', gap: '16px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Grid3X3 size={16} style={{ color: '#C9A84C' }} />
-              <h2 style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: '28px', fontWeight: 400,
-              }}>
-                Plot Layout
-              </h2>
+      {/* Plot Grid */}
+      <section style={{ padding: 'clamp(48px, 7vh, 80px) clamp(16px, 5vw, 80px)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: 'clamp(28px, 4vw, 40px)', flexWrap: 'wrap' }}>
+          <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 300 }}>
+            Plot <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Availability</em>
+          </div>
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(248,246,240,0.6)' }}>
+              <span style={{ width: '10px', height: '10px', background: 'rgba(74,222,128,0.2)', border: '1px solid rgba(74,222,128,0.5)', display: 'inline-block' }} />
+              Available
             </div>
-
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
-              {/* Filter buttons */}
-              {['all', 'available', 'booked'].map(f => (
-                <button
-                  key={f}
-                  onClick={() => { setFilter(f); setSelectedPlot(null); }}
-                  style={{
-                    padding: '8px 18px',
-                    background: filter === f ? 'rgba(201,168,76,0.15)' : 'transparent',
-                    border: `1px solid ${filter === f ? 'rgba(201,168,76,0.4)' : 'rgba(248,246,240,0.1)'}`,
-                    color: filter === f ? '#C9A84C' : 'rgba(248,246,240,0.45)',
-                    fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase',
-                    cursor: 'pointer', transition: 'all 0.3s', fontFamily: 'Outfit, sans-serif',
-                  }}
-                >
-                  {f === 'all' ? `All (${mohanGardenPlots.length})` : f === 'available' ? `Available (${availableCount})` : `Booked (${bookedCount})`}
-                </button>
-              ))}
-
-              {/* Legend */}
-              <div style={{ display: 'flex', gap: '16px', marginLeft: '12px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <div style={{ width: '12px', height: '12px', background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.4)' }} />
-                  <span style={{ fontSize: '10px', color: 'rgba(248,246,240,0.45)', letterSpacing: '1px' }}>Available</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <div style={{ width: '12px', height: '12px', background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.4)' }} />
-                  <span style={{ fontSize: '10px', color: 'rgba(248,246,240,0.45)', letterSpacing: '1px' }}>Booked</span>
-                </div>
-              </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(248,246,240,0.6)' }}>
+              <span style={{ width: '10px', height: '10px', background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.4)', display: 'inline-block' }} />
+              Sold
             </div>
           </div>
+        </div>
 
-          {/* Plot grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
-            gap: '6px',
-            marginBottom: '40px',
-          }}>
-            {filteredPlots.map(plot => (
-              <PlotCell
-                key={plot.no}
-                plot={plot}
-                selected={selectedPlot?.no === plot.no}
-                onSelect={setSelectedPlot}
-              />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 160px), 1fr))', gap: '10px', marginBottom: 'clamp(48px, 6vw, 64px)' }}>
+          {mohanGardenPlots.map((plot, i) => {
+            const avail = plot.status === 'Available';
+            return (
+              <motion.div key={plot.no} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.03 }}
+                style={{
+                  padding: 'clamp(14px, 2.5vw, 20px)',
+                  background: avail ? 'rgba(74,222,128,0.06)' : 'rgba(239,68,68,0.05)',
+                  border: `1px solid ${avail ? 'rgba(74,222,128,0.25)' : 'rgba(239,68,68,0.2)'}`,
+                  textAlign: 'center', cursor: avail ? 'pointer' : 'default',
+                  transition: 'border-color 0.2s',
+                }}
+                onMouseEnter={e => { if (avail) e.currentTarget.style.borderColor = 'rgba(74,222,128,0.5)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = avail ? 'rgba(74,222,128,0.25)' : 'rgba(239,68,68,0.2)'; }}
+              >
+                <div style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(248,246,240,0.4)', textTransform: 'uppercase', marginBottom: '4px' }}>Plot</div>
+                <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(20px, 3vw, 28px)', color: avail ? '#4ade80' : 'rgba(248,246,240,0.3)', fontWeight: 300 }}>{plot.no}</div>
+                <div style={{ fontSize: 'clamp(11px, 1.3vw, 13px)', color: avail ? 'rgba(248,246,240,0.7)' : 'rgba(248,246,240,0.3)', marginTop: '4px' }}>{plot.area} sqft</div>
+                <div style={{ marginTop: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+                  {avail ? <CheckCircle size={11} style={{ color: '#4ade80' }} /> : <XCircle size={11} style={{ color: '#f87171' }} />}
+                  <span style={{ fontSize: '9px', letterSpacing: '1px', color: avail ? '#4ade80' : '#f87171', textTransform: 'uppercase' }}>{plot.status}</span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Amenities */}
+        <div style={{ background: '#120f24', border: '1px solid rgba(201,168,76,0.1)', padding: 'clamp(28px, 4vw, 44px)', marginBottom: 'clamp(40px, 6vw, 56px)' }}>
+          <div style={{ fontSize: '10px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '20px' }}>Layout Amenities</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 200px), 1fr))', gap: '12px' }}>
+            {['Tar Road Access', 'Street Lighting', 'Underground Drainage', 'Water Supply Connection', 'Electricity Connection', 'Green Zone', 'Vastu Compliant Layout', 'Clear Title Documents', 'RERA Compliant', 'Compound Wall'].map(a => (
+              <div key={a} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: 'clamp(12px, 1.3vw, 14px)', color: 'rgba(248,246,240,0.7)' }}>
+                <CheckCircle size={12} style={{ color: '#C9A84C', flexShrink: 0 }} />{a}
+              </div>
             ))}
           </div>
-
-          {/* Selected plot detail */}
-          {selectedPlot && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              style={{
-                padding: '32px 40px',
-                border: '1px solid rgba(201,168,76,0.25)',
-                background: 'rgba(201,168,76,0.04)',
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                gap: '32px', flexWrap: 'wrap',
-              }}
-            >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                  <Info size={16} style={{ color: '#C9A84C' }} />
-                  <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#C9A84C', textTransform: 'uppercase' }}>
-                    Plot Details
-                  </span>
-                </div>
-                <h3 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: '32px', fontWeight: 400, color: '#F8F6F0', marginBottom: '8px',
-                }}>
-                  Plot No. {selectedPlot.no}
-                </h3>
-                <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-                  <div>
-                    <div style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(248,246,240,0.35)', textTransform: 'uppercase', marginBottom: '4px' }}>Area</div>
-                    <div style={{ fontSize: '16px', color: '#F8F6F0' }}>{selectedPlot.area} sqft</div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(248,246,240,0.35)', textTransform: 'uppercase', marginBottom: '4px' }}>Status</div>
-                    <div style={{
-                      fontSize: '13px',
-                      color: selectedPlot.status === 'Available' ? '#4ade80' : '#ef4444',
-                      display: 'flex', alignItems: 'center', gap: '6px',
-                    }}>
-                      <span style={{
-                        width: '8px', height: '8px', borderRadius: '50%',
-                        background: selectedPlot.status === 'Available' ? '#4ade80' : '#ef4444',
-                      }} />
-                      {selectedPlot.status}
-                    </div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(248,246,240,0.35)', textTransform: 'uppercase', marginBottom: '4px' }}>Price</div>
-                    <div style={{ fontSize: '16px', color: '#C9A84C' }}>Contact for Price</div>
-                  </div>
-                </div>
-              </div>
-
-              {selectedPlot.status === 'Available' && (
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <a href="tel:8870800708" className="btn-gold" style={{ padding: '12px 24px', fontSize: '10px' }}>
-                    <Phone size={13} />
-                    <span>Enquire Now</span>
-                  </a>
-                  <a
-                    href={`https://wa.me/918870800708?text=Hello%20BK%20Homes%2C%20I%20am%20interested%20in%20Plot%20No.%20${selectedPlot.no}%20(${selectedPlot.area}%20sqft)%20at%20Mohan%20Garden.`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-outline"
-                    style={{ borderColor: 'rgba(74,222,128,0.4)', color: '#4ade80', padding: '12px 24px', fontSize: '10px' }}
-                  >
-                    <span>WhatsApp</span>
-                  </a>
-                </div>
-              )}
-            </motion.div>
-          )}
         </div>
-      </section>
 
-      {/* All plots table */}
-      <section style={{ padding: '60px 80px 80px', background: '#0a0818' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <h2 style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: '28px', fontWeight: 400, marginBottom: '32px',
-          }}>
-            Complete <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Plot List</em>
-          </h2>
-
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{
-              width: '100%', borderCollapse: 'collapse',
-              fontSize: '14px',
-            }}>
-              <thead>
-                <tr style={{ borderBottom: '1px solid rgba(201,168,76,0.2)' }}>
-                  {['Plot No.', 'Area (sqft)', 'Status', 'Action'].map(h => (
-                    <th key={h} style={{
-                      padding: '14px 20px', textAlign: 'left',
-                      fontSize: '10px', letterSpacing: '3px',
-                      color: '#C9A84C', textTransform: 'uppercase',
-                      fontWeight: 400,
-                    }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {mohanGardenPlots.map((plot, i) => (
-                  <tr
-                    key={plot.no}
-                    onClick={() => setSelectedPlot(plot)}
-                    style={{
-                      borderBottom: '1px solid rgba(248,246,240,0.04)',
-                      cursor: 'pointer',
-                      background: selectedPlot?.no === plot.no ? 'rgba(201,168,76,0.06)' : 'transparent',
-                      transition: 'background 0.2s',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(201,168,76,0.04)'}
-                    onMouseLeave={e => e.currentTarget.style.background = selectedPlot?.no === plot.no ? 'rgba(201,168,76,0.06)' : 'transparent'}
-                  >
-                    <td style={{ padding: '14px 20px', color: '#F8F6F0', fontWeight: 500 }}>
-                      {plot.no}
-                    </td>
-                    <td style={{ padding: '14px 20px', color: 'rgba(248,246,240,0.7)' }}>
-                      {plot.area.toLocaleString()}
-                    </td>
-                    <td style={{ padding: '14px 20px' }}>
-                      <span style={{
-                        padding: '4px 12px',
-                        fontSize: '10px', letterSpacing: '1px',
-                        border: `1px solid ${plot.status === 'Available' ? 'rgba(74,222,128,0.3)' : 'rgba(239,68,68,0.3)'}`,
-                        color: plot.status === 'Available' ? '#4ade80' : '#ef4444',
-                        textTransform: 'uppercase',
-                      }}>
-                        {plot.status}
-                      </span>
-                    </td>
-                    <td style={{ padding: '14px 20px' }}>
-                      {plot.status === 'Available' ? (
-                        <a
-                          href={`https://wa.me/918870800708?text=Hello%20BK%20Homes%2C%20I%20am%20interested%20in%20Plot%20No.%20${plot.no}%20(${plot.area}%20sqft)%20at%20Mohan%20Garden.`}
-                          target="_blank"
-                          rel="noreferrer"
-                          style={{ fontSize: '11px', color: '#4ade80', textDecoration: 'none', letterSpacing: '1px' }}
-                        >
-                          Enquire →
-                        </a>
-                      ) : (
-                        <span style={{ fontSize: '11px', color: 'rgba(248,246,240,0.25)', letterSpacing: '1px' }}>&mdash;</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {/* CTA */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px', padding: 'clamp(20px, 3.5vw, 32px)', background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.15)' }}>
+          <div>
+            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(20px, 3vw, 28px)', color: '#F8F6F0', marginBottom: '4px' }}>{available} Plots Available</div>
+            <div style={{ fontSize: '13px', color: 'rgba(248,246,240,0.5)' }}>Contact us for current pricing and booking</div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section style={{
-        margin: '0 80px 80px', padding: '60px',
-        border: '1px solid rgba(201,168,76,0.15)',
-        background: 'linear-gradient(135deg, rgba(201,168,76,0.06), rgba(10,8,24,0.8))',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        gap: '40px', flexWrap: 'wrap',
-      }}>
-        <div>
-          <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '36px', fontWeight: 300, marginBottom: '12px' }}>
-            Interested in <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>Mohan Garden?</em>
-          </h3>
-          <p style={{ fontSize: '14px', color: 'rgba(248,246,240,0.5)', lineHeight: 1.7 }}>
-            Book a site visit or call us for plot availability and pricing. Limited plots available.
-          </p>
-        </div>
-        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <a href="tel:8870800708" className="btn-gold"><Phone size={14} /><span>Call: 88708 00708</span></a>
-          <a
-            href="https://wa.me/918870800708?text=Hello%20BK%20Homes%2C%20I%20am%20interested%20in%20Mohan%20Garden%20plots."
-            target="_blank" rel="noreferrer"
-            className="btn-outline"
-            style={{ borderColor: 'rgba(74,222,128,0.4)', color: '#4ade80' }}
-          >
-            <span>WhatsApp Us</span>
-          </a>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            <a href="tel:+918870800708" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: 'clamp(12px, 2vw, 16px) clamp(20px, 3.5vw, 32px)', background: '#C9A84C', color: '#0a0818', fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 500 }}>
+              <Phone size={13} /> Call Now
+            </a>
+            <Link to="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: 'clamp(12px, 2vw, 16px) clamp(20px, 3.5vw, 32px)', border: '1px solid rgba(201,168,76,0.4)', color: '#C9A84C', fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase' }}>
+              Enquire <ArrowRight size={12} />
+            </Link>
+          </div>
         </div>
       </section>
     </main>
